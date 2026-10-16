@@ -1,0 +1,1435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Career Compass: a transparent career guidance and skill recommendation tool for college students.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%2212%22%20fill%3D%22%230E6B57%22/%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.5%22/%3E%3Cpath%20d%3D%22M24%205.5v3.5M24%2039v3.5M5.5%2024h3.5M39%2024h3.5%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3Cg%20transform%3D%22rotate%2840%2024%2024%29%22%3E%3Cpath%20d%3D%22M24%2013%20L28%2024%20H20%20Z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M20%2024%20H28%20L24%2035%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<style>body{margin:0}</style>
+<title>Career Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: institutional portal. Dark brand band with nav; four views (Home, Assessment wizard, Report dashboard, Evaluation). Serif headings, sans body, mono for figures. */
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --sunk:#EEF2F0; --ink:#14211C; --muted:#56635D; --line:#D8DFDB; --line-strong:#B9C4BE;
+  --brand:#0B3B30; --brand-ink:#FFFFFF; --brand-muted:#A9C9BE;
+  --accent:#0E6B57; --accent-ink:#FFFFFF; --accent-soft:#DCEDE6;
+  --warn:#9A5512; --warn-soft:#F7E9D7; --crit:#A8322F; --crit-soft:#F6DEDB; --ok:#2A7039; --ok-soft:#DFEFDF;
+  --scrim:rgba(16,24,20,.45);
+  --display:"Source Serif 4", Cambria, Georgia, serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1412; --surface:#151D1A; --sunk:#111816; --ink:#E6ECE8; --muted:#9AA8A1; --line:#26312C; --line-strong:#3A4842;
+  --brand:#08231D; --brand-ink:#EAF2EE; --brand-muted:#8FB5A7;
+  --accent:#4FC3A1; --accent-ink:#06261D; --accent-soft:#173A30;
+  --warn:#E3A35F; --warn-soft:#3A2B18; --crit:#EA8179; --crit-soft:#3E201E; --ok:#78C987; --ok-soft:#1C3622;
+  --scrim:rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1412; --surface:#151D1A; --sunk:#111816; --ink:#E6ECE8; --muted:#9AA8A1; --line:#26312C; --line-strong:#3A4842;
+  --brand:#08231D; --brand-ink:#EAF2EE; --brand-muted:#8FB5A7;
+  --accent:#4FC3A1; --accent-ink:#06261D; --accent-soft:#173A30;
+  --warn:#E3A35F; --warn-soft:#3A2B18; --crit:#EA8179; --crit-soft:#3E201E; --ok:#78C987; --ok-soft:#1C3622;
+  --scrim:rgba(0,0,0,.6); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:24px}
+@media (max-width:520px){.wrap{padding-inline:16px}}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.18;font-weight:700}
+h1{font-size:clamp(30px,4.2vw,46px);letter-spacing:-.01em}
+h2{font-size:24px}
+h3{font-size:18px;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.label{font:500 11.5px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+button{font:inherit;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:8px;font-weight:600;font-size:15px;min-height:42px;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08);color:var(--accent-ink)}
+.btn.small{padding:5px 12px;font-size:13.5px;min-height:34px}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.5;cursor:default}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.linkbtn{background:none;border:0;color:var(--accent);padding:0;font-weight:600;font-size:14.5px;text-align:left}
+.linkbtn:hover{text-decoration:underline}
+
+/* header band */
+.topbar{background:var(--brand);color:var(--brand-ink);position:sticky;top:env(safe-area-inset-top,0px);z-index:20;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;background:none;border:0;color:inherit;padding:0;text-align:left}
+.logo{width:40px;height:40px;flex:none;display:block}
+.brand b{display:block;font:700 21px/1.1 var(--display)}
+.brand small{display:block;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--brand-muted);margin-top:3px}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main button{background:transparent;border:0;color:var(--brand-muted);padding:8px 12px;border-radius:7px;font-weight:600;font-size:15px}
+nav.main button:hover{color:var(--brand-ink);background:rgba(255,255,255,.07)}
+nav.main button[aria-current="page"]{color:var(--brand-ink);background:rgba(255,255,255,.12)}
+
+main.views{padding-block:32px 56px}
+footer.site{border-top:1px solid var(--line);padding-block:20px 32px;font-size:13.5px;color:var(--muted)}
+footer.site .wrap{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap}
+
+/* panels / cards */
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:520px){.sec{padding:18px 16px}}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.stack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.banner{border-radius:8px;padding:11px 14px;font-size:14.5px;background:var(--warn-soft);color:var(--ink);border:1px solid var(--warn)}
+.example-tag{display:inline-block;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn);border-radius:4px;padding:2px 6px;vertical-align:middle;margin-left:10px}
+.note{font-size:13px;color:var(--muted)}
+.empty{color:var(--muted);font-size:15px}
+.hint{font-size:14px;color:var(--muted)}
+.status{font-size:14px;padding:9px 12px;border-radius:7px;background:var(--sunk)}
+.status.good{background:var(--ok-soft);color:var(--ok)}
+.status.bad{background:var(--crit-soft);color:var(--crit)}
+
+/* landing */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:12px 36px}
+@media (max-width:880px){.hero{grid-template-columns:minmax(0,1fr)}}
+.hero h1{margin-top:10px}
+.hero .lede{font-size:18.5px;color:var(--muted);max-width:56ch;margin-top:16px}
+.hero .btnrow{margin-top:26px}
+.hero .facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:18px;font-size:14px;color:var(--muted)}
+.hero .facts span{display:inline-flex;align-items:center;gap:6px}
+.includes{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.includes ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column}
+.includes li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;padding:11px 0;border-top:1px solid var(--line)}
+.includes li:first-child{border-top:0}
+.ico{width:34px;height:34px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.ico svg{width:19px;height:19px}
+.includes b{display:block;font-weight:600}
+.includes small{display:block;color:var(--muted);font-size:14px}
+.band{border-top:1px solid var(--line);padding-block:32px}
+.band h2{margin-bottom:18px}
+.steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:880px){.steps4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps4{grid-template-columns:minmax(0,1fr)}}
+.stepcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.stepcard .n{font:600 13px var(--mono);color:var(--accent)}
+.stepcard p{font-size:14.5px;color:var(--muted)}
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:880px){.trust{grid-template-columns:minmax(0,1fr)}}
+.trust div{display:flex;flex-direction:column;gap:8px;padding:4px 0}
+.trust p{font-size:15px;color:var(--muted)}
+
+/* wizard */
+.wizard{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.wizard{grid-template-columns:minmax(0,1fr)}}
+.steplist{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px}
+@media (max-width:900px){.steplist{position:static;display:none}}
+.steplist ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.steplist button{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:center;background:none;border:0;padding:9px 10px;border-radius:7px;text-align:left;color:var(--ink);font-size:15px}
+.steplist button:hover{background:var(--sunk)}
+.steplist button[aria-current="step"]{background:var(--accent-soft);font-weight:600}
+.steplist .dot{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;font:600 12px var(--mono);color:var(--muted)}
+.steplist button[aria-current="step"] .dot{border-color:var(--accent);color:var(--accent)}
+.steplist .done .dot{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.steplist .tools{border-top:1px solid var(--line);margin-top:8px;padding:10px 6px 4px;display:flex;flex-wrap:wrap;gap:6px}
+.steplist .tools .btn,.mtools .btn{white-space:nowrap}
+.steplist .done[aria-current="step"] .dot{background:var(--surface);color:var(--accent)}
+.progress{display:flex;flex-direction:column;gap:8px}
+.progress .bar{height:6px}
+.wpanel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.wpanel .whead{padding:22px 26px 0;display:flex;flex-direction:column;gap:6px}
+.wpanel .wbody{padding:20px 26px 24px}
+.wpanel .wfoot{border-top:1px solid var(--line);background:var(--sunk);padding:14px 26px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:520px){.wpanel .whead,.wpanel .wbody,.wpanel .wfoot{padding-inline:16px}}
+.mtools{display:none;gap:6px;flex-wrap:wrap}
+@media (max-width:900px){.mtools{display:flex}}
+.stepsec{display:flex;flex-direction:column;gap:14px;min-width:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field>label,.field>.flabel{font-size:14px;font-weight:600}
+input[type=text],input[type=number],select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:7px;padding:9px 11px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:64px}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:2px solid var(--accent-soft);outline-offset:0}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:7px 13px;border-radius:7px;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+.skillgroup{display:flex;flex-direction:column}
+.skillgroup .label{margin:14px 0 4px}
+.skillgroup:first-child .label{margin-top:0}
+.skillrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+.skillrow .name{font-size:15px;min-width:0}
+.skillrow .vtag{display:block;font:11.5px var(--mono);color:var(--muted)}
+.skillrow .vtag.cap{color:var(--warn)}
+.skillrow .vtag.ok{color:var(--ok)}
+.lv{display:flex;border:1px solid var(--line-strong);border-radius:7px;overflow:hidden}
+.lv button{border:0;border-left:1px solid var(--line);background:var(--surface);color:var(--muted);width:34px;height:32px;font:500 13px var(--mono);padding:0}
+.lv button:first-child{border-left:0}
+.lv button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.legendlv{display:flex;flex-wrap:wrap;gap:4px 14px;font:12.5px var(--mono);color:var(--muted)}
+.callout{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--accent-soft);border-radius:8px;padding:12px 14px;font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 13px;font-size:14px;display:inline-flex;gap:7px;align-items:center}
+.chip .rk{font:600 11px var(--mono);background:var(--accent);color:var(--accent-ink);border-radius:999px;min-width:19px;height:19px;display:inline-grid;place-items:center}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+details.riasec{border:1px solid var(--line);border-radius:8px;background:var(--sunk)}
+details.riasec>summary{cursor:pointer;padding:12px 14px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.rbody{padding:0 14px 14px;display:flex;flex-direction:column;gap:4px}
+.ritem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:14.5px}
+.lik{display:flex;gap:3px}
+.lik button{width:30px;height:30px;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:6px;font:500 12.5px var(--mono);padding:0}
+.lik button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.hcode{display:flex;gap:6px;flex-wrap:wrap}
+.hcode span{font:500 12.5px var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:2px 8px}
+.projlist{display:flex;flex-direction:column;gap:8px}
+.projrow{display:grid;grid-template-columns:minmax(0,1fr) 170px 40px;gap:8px;align-items:center}
+@media (max-width:560px){.projrow{grid-template-columns:minmax(0,1fr) 40px}.projrow select{grid-column:1/2}}
+.iconbtn{border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:7px;height:40px;width:40px;padding:0;font-size:18px}
+
+/* report dashboard */
+.rhead{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.rhead p{margin-top:8px;color:var(--muted);max-width:80ch}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.kpis{grid-template-columns:minmax(0,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.kpi b{font:700 32px/1.05 var(--display);font-variant-numeric:tabular-nums}
+.kpi b small{font-size:16px;color:var(--muted);font-weight:600}
+.kpi .sub{font-size:14px;color:var(--muted)}
+.kpi.lead{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.kpi.lead .label,.kpi.lead .sub{color:var(--brand-muted)}
+.kpi.lead b small{color:var(--brand-muted)}
+.rtabs{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto}
+.rtabs button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 14px;font-weight:600;font-size:15px;color:var(--muted);white-space:nowrap}
+.rtabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.rgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:980px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+
+.hero2{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center}
+@media (max-width:560px){.hero2{grid-template-columns:minmax(0,1fr)}}
+.bignum{font:700 56px/1 var(--display);font-variant-numeric:tabular-nums;color:var(--accent)}
+.bignum small{font-size:22px;color:var(--muted);font-weight:600}
+.careers{display:flex;flex-direction:column;gap:6px}
+.career{border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.career>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:22px minmax(0,1fr) minmax(80px,200px) 56px;gap:12px;align-items:center;padding:11px 14px}
+.career>summary::-webkit-details-marker{display:none}
+.career .rank{font:500 12.5px var(--mono);color:var(--muted)}
+.career .cname{font-weight:600;min-width:0}
+.career .cname small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.bar{height:8px;background:var(--sunk);border-radius:999px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:999px}
+.career .pct{font:600 15.5px var(--mono);text-align:right}
+.career.best{border-color:var(--accent)}
+@media (max-width:520px){.career>summary{grid-template-columns:22px minmax(0,1fr) 56px}.career>summary .bar{grid-column:2/4;grid-row:2}}
+.cbody{padding:4px 14px 14px;display:flex;flex-direction:column;gap:12px}
+.sheet{width:100%;border-collapse:collapse;font-size:14.5px}
+.sheet th,.sheet td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.sheet th{font:500 11.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--sunk)}
+.sheet td.n,.sheet th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.sheet tfoot td{font-weight:600;border-bottom:0;border-top:2px solid var(--ink)}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;font:500 12.5px var(--mono);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.p-crit{background:var(--crit-soft);color:var(--crit)}
+.p-high{background:var(--warn-soft);color:var(--warn)}
+.p-med{background:var(--accent-soft);color:var(--accent)}
+.p-met{background:var(--ok-soft);color:var(--ok)}
+.levelbar{display:inline-flex;gap:2px;vertical-align:middle;margin-right:7px}
+.levelbar i{width:8px;height:8px;border-radius:2px;background:var(--line-strong)}
+.levelbar i.on{background:var(--accent)}
+.levelbar i.req{outline:1.5px solid var(--warn);outline-offset:-1.5px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:14.5px}
+.meta div{display:flex;flex-direction:column;gap:2px}
+.path{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px}
+.path span{background:var(--sunk);border-radius:6px;padding:3px 9px}
+.path b{color:var(--muted);font-weight:400}
+.ol{display:flex;flex-direction:column;margin:0;padding:0;list-style:none;counter-reset:n}
+.ol li{counter-increment:n;display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid var(--line)}
+.ol li:first-child{border-top:0}
+.ol li::before{content:counter(n);font:600 14px var(--mono);color:var(--accent)}
+.phases{display:flex;flex-direction:column;border-left:2px solid var(--line);margin-left:6px}
+.phase{position:relative;padding:0 0 20px 22px}
+.phase:last-child{padding-bottom:0}
+.phase::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.phase .ph{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.phase ul{margin:6px 0 0;padding-left:18px;font-size:15px}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.proj{border:1px solid var(--line);border-radius:8px;padding:15px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.proj .tags{display:flex;flex-wrap:wrap;gap:4px}
+.proj .tags span{font:12.5px var(--mono);background:var(--sunk);border-radius:4px;padding:1px 7px}
+.proj.next{border-color:var(--accent);background:var(--accent-soft)}
+.ready{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:560px){.ready{grid-template-columns:minmax(0,1fr)}}
+.gauge{width:150px;height:150px;max-width:100%}
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.cols3 ul{margin:6px 0 0;padding-left:18px;font-size:15px}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step3{background:var(--sunk);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--line)}
+.ai-out{display:flex;flex-direction:column;gap:12px;font-size:15px}
+.ai-out ul{margin:4px 0 0;padding-left:18px}
+.rangerow{display:grid;grid-template-columns:minmax(0,1fr) 36px;gap:10px;align-items:center}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:15px}
+.check input{margin-top:5px;accent-color:var(--accent)}
+
+/* quiz overlay */
+.overlay{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.qpanel{background:var(--surface);color:var(--ink);border-radius:12px;width:min(660px,100%);max-height:calc(100% - 32px);overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px;border:1px solid var(--line)}
+.qlist{display:flex;flex-direction:column}
+.qlist .qrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.qlist .qrow:first-child{border-top:0}
+.q{display:flex;flex-direction:column;gap:6px;padding:12px 0;border:0;border-top:1px solid var(--line);margin:0;min-width:0}
+.q:first-of-type{border-top:0}
+.q legend{font:600 15.5px var(--body);float:left;width:100%;margin-bottom:4px;padding:0}
+.q .opt{display:flex;gap:9px;align-items:flex-start;font-size:15px;padding:6px 9px;border-radius:6px;cursor:pointer}
+.q .opt:hover{background:var(--sunk)}
+.q .opt input{margin-top:5px;accent-color:var(--accent)}
+.q .opt.right{background:var(--ok-soft)}
+.q .opt.wrong{background:var(--crit-soft)}
+
+/* evaluation */
+.ekpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.ekpi{border:1px solid var(--line);border-radius:8px;padding:13px 15px;display:flex;flex-direction:column;gap:4px}
+.ekpi b{font:700 28px/1.1 var(--display);font-variant-numeric:tabular-nums}
+.ekpi .note{font-size:12.5px}
+.rateCard{border:1px solid var(--accent);border-radius:8px;padding:15px;display:flex;flex-direction:column;gap:10px}
+.rateRow{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+.rateRow:first-of-type{border-top:0}
+@media (prefers-reduced-motion:no-preference){.bar>i{transition:width .35s ease}}
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="wrap">
+    <button type="button" class="brand" data-go="home" aria-label="Career Compass home">
+      <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" rx="12" fill="var(--accent)"/>
+        <circle cx="24" cy="24" r="13" fill="none" stroke="var(--accent-ink)" stroke-width="2.5"/>
+        <path d="M24 5.5v3.5M24 39v3.5M5.5 24h3.5M39 24h3.5" stroke="var(--accent-ink)" stroke-width="2.5" stroke-linecap="round"/>
+        <g transform="rotate(40 24 24)">
+          <path d="M24 13 L28 24 H20 Z" fill="var(--accent-ink)"/>
+          <path d="M20 24 H28 L24 35 Z" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linejoin="round"/>
+        </g>
+        <circle cx="24" cy="24" r="2.2" fill="var(--accent)" stroke="var(--accent-ink)" stroke-width="1.5"/>
+      </svg>
+      <span><b>Career Compass</b><small>Career guidance &amp; skill recommendation</small></span>
+    </button>
+    <nav class="main" aria-label="Main">
+      <button type="button" data-go="home" id="nav_home">Home</button>
+      <button type="button" data-go="wizard" id="nav_wizard">Assessment</button>
+      <button type="button" data-go="report" id="nav_report">My report</button>
+      <button type="button" data-go="eval" id="nav_eval" hidden>Evaluation</button>
+    </nav>
+  </div>
+</header>
+
+<main class="views">
+  <!-- HOME -->
+  <section id="view_home" class="wrap" aria-labelledby="home_h">
+    <div class="hero">
+      <div>
+        <p class="label">Student career guidance</p>
+        <h1 id="home_h">Find the tech career that fits you, and the plan to get there</h1>
+        <p class="lede">Answer six short sections about your studies, skills and interests. Career Compass ranks 13 technology careers for you, shows exactly why, and turns the result into a learning plan.</p>
+        <div class="btnrow">
+          <button type="button" class="btn primary" id="startBtn">Start the assessment</button>
+          <button type="button" class="btn" id="sampleBtn">View a sample report</button>
+        </div>
+        <div class="facts"><span>About 10 minutes</span><span>6 steps</span><span>Nothing is saved without your consent</span></div>
+      </div>
+      <div class="includes">
+        <p class="label">Your report includes</p>
+        <ul>
+          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><b>Top 5 career matches</b><small>Each with a score you can open and check</small></span></li>
+          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span><span><b>Prioritised skill gap</b><small>What to learn first, checked by a short quiz</small></span></li>
+          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg></span><span><b>Learning roadmap and projects</b><small>Five phases, sized to your study hours</small></span></li>
+          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span><b>Job readiness score</b><small>Out of 100, with your next three steps</small></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="band">
+      <h2>How it works</h2>
+      <div class="steps4">
+        <div class="stepcard"><span class="n">STEP 1</span><h3>Tell us about you</h3><p>Studies, 27 skills rated 0 to 4, interests, projects and goals.</p></div>
+        <div class="stepcard"><span class="n">STEP 2</span><h3>Check your answers</h3><p>A 3-question check per skill and an 18-item interest test.</p></div>
+        <div class="stepcard"><span class="n">STEP 3</span><h3>Transparent scoring</h3><p>Seven weighted factors score each of 13 careers.</p></div>
+        <div class="stepcard"><span class="n">STEP 4</span><h3>Get your plan</h3><p>Matches, skill gap, roadmap, projects and readiness.</p></div>
+      </div>
+    </div>
+    <div class="band">
+      <h2>Why you can trust the result</h2>
+      <div class="trust">
+        <div><h3>Every score is explained</h3><p>Open any career to see each factor's score, weight and points. Nothing is hidden.</p></div>
+        <div><h3>Skills are verified</h3><p>A skill counts at most one level above the number of quiz questions you answer correctly.</p></div>
+        <div><h3>Accuracy is measured</h3><p>Counsellors rate recommendations, and the results are tracked with standard measures.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIZARD -->
+  <section id="view_wizard" class="wrap" aria-labelledby="wiz_h" hidden>
+    <div class="wizard">
+      <aside class="steplist" aria-label="Assessment steps">
+        <ol id="stepList"></ol>
+        <div class="tools"><button class="btn small ghost" type="button" id="loadExample">Load example</button><button class="btn small ghost" type="button" id="clearAll">Clear all</button></div>
+      </aside>
+      <div class="stack">
+        <div class="progress"><div class="sechead"><span class="label" id="stepCount">Step 1 of 6</span><div class="mtools"><button class="btn small ghost" type="button" data-proxy="loadExample">Load example</button><button class="btn small ghost" type="button" data-proxy="clearAll">Clear all</button></div></div><div class="bar" aria-hidden="true"><i id="stepBar" style="width:16%"></i></div></div>
+        <form id="profile" class="wpanel" autocomplete="off" novalidate>
+          <div class="whead"><h1 id="wiz_h" style="font-size:clamp(24px,3vw,30px)">About you</h1><p class="hint" id="wiz_desc"></p></div>
+          <div class="wbody">
+            <div class="stepsec" data-step="0">
+              <div class="grid2">
+                <div class="field"><label for="f_name">Name</label><input type="text" id="f_name" data-k="name"></div>
+                <div class="field"><label for="f_country">Country</label><input type="text" id="f_country" data-k="country"></div>
+                <div class="field"><label for="f_loc">Current location</label><input type="text" id="f_loc" data-k="location"></div>
+                <div class="field"><label for="f_ploc">Preferred work location</label><input type="text" id="f_ploc" data-k="prefLocation"></div>
+              </div>
+              <div class="field"><span class="flabel">Preferred work mode</span><div class="seg" data-seg="workMode" role="group" aria-label="Preferred work mode"></div></div>
+            </div>
+            <div class="stepsec" data-step="1" hidden>
+              <div class="grid2">
+                <div class="field"><label for="f_degree">Degree</label><input type="text" id="f_degree" data-k="degree" placeholder="e.g. B.Tech, BSc, BCA"></div>
+                <div class="field"><label for="f_major">Major area</label><select id="f_major" data-k="major"></select></div>
+                <div class="field"><label for="f_year">Year / semester</label><input type="text" id="f_year" data-k="year" placeholder="e.g. 3rd year"></div>
+                <div class="field"><label for="f_cgpa">CGPA / percentage</label><input type="text" id="f_cgpa" data-k="cgpa"></div>
+              </div>
+              <div class="field"><label for="f_college">College / university</label><input type="text" id="f_college" data-k="college"></div>
+              <div class="grid2">
+                <div class="field"><label for="f_str">Academic strengths</label><textarea id="f_str" data-k="strengths"></textarea></div>
+                <div class="field"><label for="f_weak">Academic weaknesses</label><textarea id="f_weak" data-k="weaknesses"></textarea></div>
+              </div>
+            </div>
+            <div class="stepsec" data-step="2" hidden>
+              <div class="callout"><span>After rating, take a 3-question check on each skill. Ratings your answers don't support are capped when scoring.</span><button type="button" class="btn small primary" id="openQuiz">Check my skills</button></div>
+              <div class="legendlv"><span>0 None</span><span>1 Beginner</span><span>2 Intermediate</span><span>3 Advanced</span><span>4 Expert</span></div>
+              <div id="skillGrid"></div>
+            </div>
+            <div class="stepsec" data-step="3" hidden>
+              <p class="hint">Tap up to 5 in order of preference. The number shows your ranking.</p>
+              <div class="chips" id="interestChips"></div>
+              <details class="riasec" id="riasecBox">
+                <summary><span>Interest test (18 questions, about 3 minutes)</span><span class="mono muted" id="riasecStatus"></span></summary>
+                <div class="rbody">
+                  <p class="hint">How much would you enjoy each activity? 1 = not at all, 5 = very much. Based on Holland's six interest types (RIASEC).</p>
+                  <div id="riasecItems"></div>
+                  <div id="riasecResult"></div>
+                </div>
+              </details>
+            </div>
+            <div class="stepsec" data-step="4" hidden>
+              <div class="grid2">
+                <div class="field"><label for="f_target">Target job role</label><select id="f_target" data-k="target"></select></div>
+                <div class="field"><label for="f_hours">Study hours per week</label><input type="number" id="f_hours" data-k="hours" min="1" max="60" step="1"></div>
+              </div>
+              <div class="field"><label for="f_goal">Short-term goal</label><input type="text" id="f_goal" data-k="shortGoal" placeholder="e.g. Get an internship by next summer"></div>
+              <div class="field"><label for="f_lgoal">Long-term goal</label><input type="text" id="f_lgoal" data-k="longGoal"></div>
+            </div>
+            <div class="stepsec" data-step="5" hidden>
+              <div class="field"><span class="flabel">Projects you have built</span>
+                <div class="projlist" id="projList"></div>
+                <button type="button" class="linkbtn" id="addProj">+ Add a project</button>
+              </div>
+              <div class="grid2">
+                <div class="field"><label for="f_intern">Internship / work experience</label><select id="f_intern" data-k="intern"></select></div>
+                <div class="field"><label for="f_coding">Coding problems solved</label><select id="f_coding" data-k="coding"></select></div>
+                <div class="field"><label for="f_certs">Relevant certifications done</label><select id="f_certs" data-k="certs"></select></div>
+                <div class="field"><label for="f_resume">Resume status</label><select id="f_resume" data-k="resume"></select></div>
+              </div>
+              <div class="field"><span class="flabel">Communication confidence (1 = low, 5 = high)</span><div class="seg" data-seg="comm" role="group" aria-label="Communication confidence"></div></div>
+            </div>
+          </div>
+          <div class="wfoot">
+            <button type="button" class="btn" id="prevStep">Back</button>
+            <button type="button" class="btn primary" id="nextStep">Next</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <section id="view_report" class="wrap stack" aria-label="Career report" hidden>
+    <div id="reportHead" class="stack"></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="rtabs" role="tablist" aria-label="Report sections">
+      <button type="button" role="tab" id="rt_overview" aria-controls="panel_overview" data-rtab="overview">Overview</button>
+      <button type="button" role="tab" id="rt_skills" aria-controls="panel_skills" data-rtab="skills">Skills</button>
+      <button type="button" role="tab" id="rt_plan" aria-controls="panel_plan" data-rtab="plan">Learning plan</button>
+      <button type="button" role="tab" id="rt_ready" aria-controls="panel_ready" data-rtab="ready">Readiness</button>
+      <button type="button" role="tab" id="rt_feedback" aria-controls="panel_feedback" data-rtab="feedback">Feedback</button>
+    </div>
+    <div id="panel_overview" role="tabpanel" aria-labelledby="rt_overview" class="stack"></div>
+    <div id="panel_skills" role="tabpanel" aria-labelledby="rt_skills" class="stack" hidden></div>
+    <div id="panel_plan" role="tabpanel" aria-labelledby="rt_plan" class="stack" hidden></div>
+    <div id="panel_ready" role="tabpanel" aria-labelledby="rt_ready" class="stack" hidden></div>
+    <div id="panel_feedback" role="tabpanel" aria-labelledby="rt_feedback" class="stack" hidden></div>
+  </section>
+
+  <!-- EVALUATION -->
+  <section class="wrap stack" id="evalView" aria-label="Evaluation" hidden></section>
+</main>
+
+<footer class="site">
+  <div class="wrap"><span>Career Compass · Recommendations are guidance, not guarantees of a job or salary.</span><span>Market and growth scores are fixed estimates, not live data.</span></div>
+</footer>
+
+<div class="overlay" id="quiz" hidden role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+  <div class="qpanel" id="qpanel"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* =================== DATA =================== */
+const LEVELS=["None","Beginner","Intermediate","Advanced","Expert"];
+const SKILL_GROUPS=[
+  ["Programming",[["python","Python"],["java","Java"],["cpp","C / C++"],["js","JavaScript / TypeScript"],["dsa","Data structures & algorithms"]]],
+  ["Web development",[["htmlcss","HTML & CSS"],["react","React / Angular"],["backend","Backend (Node.js, Django, Flask)"]]],
+  ["Data & AI",[["sql","SQL (MySQL, PostgreSQL)"],["nosql","MongoDB / NoSQL"],["excel","Excel / spreadsheets"],["pandas","Pandas & NumPy"],["bi","Power BI / Tableau"],["stats","Statistics"],["ml","Machine learning"],["dl","Deep learning (TensorFlow, PyTorch)"]]],
+  ["Cloud, DevOps & security",[["cloud","Cloud (AWS, Azure, GCP)"],["linux","Linux & shell"],["docker","Docker"],["k8s","Kubernetes"],["git","Git & GitHub"],["networking","Networking"],["security","Security fundamentals"]]],
+  ["Design, product, mobile & games",[["uiux","UI/UX design (Figma)"],["product","Product & business analysis"],["mobile","Mobile (Kotlin, Swift, Flutter)"],["gameengine","Game engines (Unity, Unreal)"]]]
+];
+const SKILL_NAME={lang:"A main language (Python, Java or C++)"};
+const ALL_SKILLS=[];
+SKILL_GROUPS.forEach(g=>g[1].forEach(([k,n])=>{SKILL_NAME[k]=n;ALL_SKILLS.push(k)}));
+const INTERESTS=["Software Development","Full-Stack Development","Data Analytics","Data Science","Artificial Intelligence","Machine Learning","Cybersecurity","Cloud Computing","DevOps","UI/UX Design","Mobile App Development","Game Development","Business / Management","Product Management","Research","Entrepreneurship"];
+const MAJORS=[["","Select…"],["cs","Computer Science / IT"],["ece","Electronics / Electrical"],["math","Mathematics / Statistics"],["eng","Other engineering"],["biz","Commerce / Business"],["sci","Science (Physics, Chemistry, Bio)"],["design","Design / Fine arts"],["arts","Arts / Humanities / Other"]];
+const AREAS=[["software","Software / apps"],["web","Web"],["mobile","Mobile"],["data","Data / analytics"],["ml","ML / AI"],["cloud","Cloud / DevOps"],["security","Security"],["design","UI/UX design"],["game","Games"],["other","Other"]];
+const WORKMODES=["Remote","Hybrid","On-site","No preference"];
+const INTERN=[["0","None"],["1","1–2 months"],["3","3–5 months"],["6","6+ months"]];
+const CODING=[["0","None yet"],["1","1–50"],["2","51–150"],["3","151–300"],["4","300+"]];
+const CERTS=[["0","None"],["1","1"],["2","2 or more"]];
+const RESUME=[["none","No resume yet"],["draft","Draft written"],["reviewed","Reviewed / ATS-checked"]];
+
+const W={academic:.15,skill:.25,interest:.20,project:.15,market:.10,growth:.10,pref:.05};
+const FACTOR_LABEL={academic:"Academic match",skill:"Technical skill match",interest:"Interest match",project:"Project / experience match",market:"Job market relevance*",growth:"Career growth potential*",pref:"Your career preference"};
+const JOBPREP=["Resume rewritten in Action + Technology + Problem + Result format","GitHub or portfolio with pinned projects and READMEs","LinkedIn headline and project posts","Coding or case practice and aptitude tests","Technical and HR mock interviews, communication practice"];
+
+const RIASEC=[["R","Realistic"],["I","Investigative"],["A","Artistic"],["S","Social"],["E","Enterprising"],["C","Conventional"]];
+const RIASEC_ITEMS=[
+ ["R","Setting up or repairing computers, phones or networks"],["R","Building physical things such as robots or circuits"],["R","Keeping servers or machines running reliably"],
+ ["I","Working out why a program or experiment gives a strange result"],["I","Reading about how algorithms, the brain or the universe work"],["I","Digging into data to find patterns"],
+ ["A","Designing how an app or website looks"],["A","Writing, drawing, making music or videos"],["A","Inventing game worlds, characters or stories"],
+ ["S","Explaining a difficult topic to a classmate"],["S","Helping someone solve a problem they are stuck on"],["S","Volunteering or organising events that help others"],
+ ["E","Leading a team or club project"],["E","Pitching an idea to convince people"],["E","Starting your own product or business"],
+ ["C","Keeping files, spreadsheets or records well organised"],["C","Following a clear procedure to get an exact result"],["C","Checking work carefully for errors"]
+];
+
+/* Skill quiz: [question, [correct, wrong, wrong, wrong]]; options are shuffled for display. Q1 beginner, Q2 intermediate, Q3 advanced. */
+const QUIZ={
+ python:[["What does len([1, 2, 3]) return?",["3","2","6","An error"]],["What does [x*x for x in range(3)] produce?",["[0, 1, 4]","[1, 4, 9]","[0, 1, 2]","(0, 1, 4)"]],["Calling a function that contains `yield` returns:",["A generator object","The first yielded value","None","A list of all yielded values"]]],
+ java:[["Which keyword creates a new object?",["new","create","make","object"]],["Which of these cannot be instantiated directly?",["An abstract class","A final class","A static nested class","A record"]],["Comparing two String objects with == checks:",["Whether they are the same object","Whether their characters match","Whether their lengths match","Nothing; it won't compile"]]],
+ cpp:[["What does `int* p` declare?",["A pointer to an int","An int array","A reference","A function"]],["Memory from `new int[10]` should be freed with:",["delete[]","delete","free()","Nothing; it is automatic"]],["std::unique_ptr guarantees:",["Single ownership; the object is deleted when it goes out of scope","Thread-safe access","Shared reference counting","Stack allocation"]]],
+ js:[["Which declares a block-scoped variable that cannot be reassigned?",["const","var","let","static"]],["What does \"5\" + 3 evaluate to?",["\"53\"","8","NaN","A TypeError"]],["`await` can pause execution inside:",["An async function (or a module's top level)","Any function","Only loops","Only callbacks"]]],
+ dsa:[["Time to read an array element by index:",["O(1)","O(n)","O(log n)","O(n log n)"]],["Which structure gives first-in, first-out order?",["Queue","Stack","Heap","Binary search tree"]],["Best structure for repeatedly taking the smallest item from a changing set:",["Min-heap","Linked list","Hash table","Unsorted array"]]],
+ htmlcss:[["Which tag creates a hyperlink?",["<a>","<link>","<href>","<url>"]],["In the CSS box model, what sits between the border and the content?",["Padding","Margin","Outline","Inset"]],["With `grid-template-columns: 1fr 2fr`, the second column is:",["Twice as wide as the first","2px wide","20% wide","Twice as tall"]]],
+ react:[["A React component returns:",["JSX / elements describing the UI","HTML strings only","A CSS file","A database query"]],["Calling a state setter causes:",["The component to re-render","The page to reload","Nothing until refresh","Its props to change"]],["The dependency array of useEffect controls:",["When the effect re-runs","Which children render","Which props are passed","Which state is declared"]]],
+ backend:[["Which HTTP method is conventionally used to create a resource?",["POST","GET","HEAD","OPTIONS"]],["HTTP status 404 means:",["Not found","Server error","Unauthorized","Created"]],["Why store password hashes (e.g. bcrypt) rather than encrypted passwords?",["They can't be turned back into passwords if the database leaks","Hashes are faster to decrypt","Encryption isn't allowed over HTTP","To compress them"]]],
+ sql:[["Which clause filters rows before grouping?",["WHERE","HAVING","ORDER BY","GROUP BY"]],["A LEFT JOIN returns:",["All rows from the left table plus matching rows from the right","Only matching rows","All rows from both tables","Only unmatched rows"]],["ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) gives:",["Each row's position by salary within its department","The row count per department","The highest salary","A running total"]]],
+ nosql:[["MongoDB stores data as:",["Documents (JSON-like)","Rows and columns","Key-value pairs only","Graph edges"]],["Embedding related data in one document is best when:",["The data is read together and doesn't grow without limit","Many documents share the same data","You need many joins","Each part changes independently and often"]],["An index on a field mainly:",["Speeds up queries on that field at some cost to writes","Encrypts the field","Always makes the field unique","Compresses documents"]]],
+ excel:[["Which function adds up a range?",["SUM","COUNT","LEN","CONCAT"]],["What does $A$1 mean in a formula?",["An absolute reference that doesn't shift when copied","A currency value","A named range","A hidden cell"]],["XLOOKUP or VLOOKUP is used to:",["Find a value in a table and return a matching value","Sort a column","Create a chart","Remove duplicates"]]],
+ pandas:[["df.head() shows:",["The first rows","Only the column names","The last rows","Summary statistics"]],["df.groupby(\"city\")[\"sales\"].sum() returns:",["Total sales per city","Sales sorted by city","The number of cities","Average sales"]],["Which avoids slow Python loops over a column?",["Vectorised operations such as df[\"a\"] * 2","df.iterrows()","A for loop over df.index","apply() with print()"]]],
+ bi:[["A slicer or filter on a dashboard lets you:",["Filter visuals interactively","Edit the source data","Write SQL","Schedule emails"]],["In Power BI, a measure differs from a calculated column because it:",["Is calculated at query time for the current filters","Is stored row by row","Can't use DAX","Only works in tables"]],["Which chart best shows how a total moves through positive and negative steps?",["Waterfall chart","Pie chart","Scatter plot","Gauge"]]],
+ stats:[["The median of 2, 3 and 9 is:",["3","4.67","9","2"]],["With a 0.05 significance level, a p-value of 0.03 means:",["Reject the null hypothesis","The alternative is 97% certain","The effect is large","The data is wrong"]],["A correlation of 0.9 between two variables shows:",["A strong linear association, not necessarily causation","That one causes the other","No relationship","A 90% probability"]]],
+ ml:[["Predicting house prices is a:",["Regression problem","Classification problem","Clustering problem","Reinforcement learning problem"]],["High training accuracy but much lower test accuracy usually means:",["Overfitting","Underfitting","A perfect fit","Too little training"]],["When only 1% of examples are positive, which is more informative than accuracy?",["Precision and recall (or F1)","Accuracy alone","Mean squared error","R²"]]],
+ dl:[["A neural network mainly learns its weights through:",["Backpropagation and gradient descent","Manual tuning","Random search only","Hand-written rules"]],["Convolutional layers are most associated with:",["Images","Tabular finance data","SQL queries","Sorting"]],["Transfer learning means:",["Starting from a model pretrained on another task and fine-tuning it","Copying data between GPUs","Training two models at once","Converting a model to another framework"]]],
+ cloud:[["Which is an object storage service?",["Amazon S3 / Azure Blob Storage","Amazon EC2","Azure DevOps","Google Docs"]],["\"Serverless\" functions mean:",["You run code without managing servers and pay per use","There are no servers at all","Code runs on your laptop","Only static websites"]],["The principle of least privilege means:",["Grant only the permissions a user or service needs","Give admins every permission","Disable passwords","Share one account"]]],
+ linux:[["Which command lists the files in a directory?",["ls","cd","pwd","cat"]],["`chmod 755 script.sh` gives the owner:",["Read, write and execute","Read only","Execute only","No access"]],["Which command follows new lines of a growing log file live?",["tail -f","head","less -n","grep -v"]]],
+ docker:[["A Docker image is:",["A packaged template used to start containers","A running container","A virtual machine","A Git branch"]],["Which file defines how an image is built?",["Dockerfile","docker.yaml","package.json","Makefile"]],["Why use a multi-stage build?",["To keep build tools out of the final, smaller image","To run several containers","To speed up networking","To share volumes"]]],
+ k8s:[["The smallest deployable unit in Kubernetes is a:",["Pod","Node","Cluster","Namespace"]],["A Kubernetes Service provides:",["A stable network address for a set of pods","Persistent storage","Container images","Node autoscaling"]],["A Deployment's rolling update:",["Replaces pods gradually to avoid downtime","Restarts the whole cluster","Deletes every pod first","Moves pods to another cluster"]]],
+ git:[["Which command records staged changes?",["git commit","git add","git push","git status"]],["`git pull` is roughly:",["git fetch followed by a merge (or rebase)","git push in reverse","git clone","git reset"]],["Running `git rebase main` on a feature branch:",["Replays your commits on top of main","Deletes main","Merges your branch into main","Reverts every commit"]]],
+ networking:[["DNS:",["Translates domain names into IP addresses","Encrypts traffic","Assigns MAC addresses","Only routes email"]],["HTTPS uses which default port?",["443","80","22","8080"]],["How many usable host addresses does an IPv4 /24 subnet have?",["254","256","255","24"]]],
+ security:[["Phishing is:",["Tricking people into revealing information or clicking malicious links","A type of firewall","An encryption algorithm","A backup method"]],["SQL injection is best prevented by:",["Parameterised queries","Longer passwords","HTTPS","Hiding error pages"]],["In the CIA triad, integrity means:",["Data isn't changed without authorisation","Data is always available","Data is kept secret","Users are identified"]]],
+ uiux:[["A wireframe is:",["A low-detail layout of a screen's structure","A final coloured design","Front-end code","A user survey"]],["Usability testing mainly checks:",["Whether real users can complete tasks","Server speed","Brand colours","Code quality"]],["Under WCAG AA, normal body text needs a contrast ratio of at least:",["4.5:1","2:1","3:1","7:1"]]],
+ product:[["A user story usually follows the form:",["As a <user>, I want <goal> so that <benefit>","Given, when, then only","A SQL statement","A Gantt chart"]],["An A/B test compares:",["Two versions shown to randomly split users","Two teams","Two databases","Two releases a year apart"]],["A north star metric is:",["The one metric that best captures the value customers get","Only the revenue target","A design principle","The bug count"]]],
+ mobile:[["Which language does Google recommend for new Android apps?",["Kotlin","Swift","C#","PHP"]],["Long tasks like network calls should not run on:",["The main (UI) thread","A background thread","A coroutine","A worker"]],["Flutter apps are written in:",["Dart","Kotlin","JavaScript","Swift"]]],
+ gameengine:[["Unity scripts are mainly written in:",["C#","Python","Java","Lua"]],["A game's Update function usually runs:",["Once per frame","Once at start","Only on input","Once per second"]],["Why multiply movement by delta time?",["So speed stays the same at any frame rate","To add randomness","To save memory","To sync multiplayer"]]]
+};
+
+const CAREERS=[
+ {id:"sde",name:"Software Developer",holland:"IRC",interests:["Software Development","Mobile App Development","Game Development"],areas:["software","web"],
+  acad:{cs:95,ece:75,math:65,eng:55,biz:30,sci:45,design:30,arts:25},market:85,growth:85,difficulty:"Moderate",prep:"4–6 months",
+  path:["Junior Developer","Software Developer","Senior Developer","Technical Lead","Engineering Manager / Architect"],
+  req:[["lang",3,1],["dsa",3,1],["git",2,1],["sql",2,0],["linux",1,0],["backend",1,0]],
+  advanced:["Object-oriented design and design patterns","Writing unit and integration tests","System design basics: caching, queues, load balancing"],
+  projects:[
+   {lvl:"Beginner",title:"Exam timetable clash checker",problem:"Students discover overlapping exams too late.",tech:["Python or Java","File I/O"],feat:"Reads course registrations, flags clashes, prints a per-student report.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"URL shortener with rate limiting",problem:"Links shared in college groups are long and untracked.",tech:["REST API","SQL","Unit tests"],feat:"Short codes, click counts, per-IP rate limit, test suite.",time:"3–4 weeks"},
+   {lvl:"Advanced",title:"Bus-pass booking backend",problem:"Seat allocation breaks when many students book at once.",tech:["Java/Spring or Python/FastAPI","PostgreSQL","Docker"],feat:"Concurrency-safe booking, transactions, waitlist, load test results.",time:"6–8 weeks"}],
+  certs:[],certNote:"Not needed for this role. Strong DSA and well-built projects carry far more weight."},
+ {id:"fs",name:"Full-Stack Developer",holland:"IAC",interests:["Full-Stack Development","Software Development","UI/UX Design","Entrepreneurship"],areas:["web"],
+  acad:{cs:90,ece:70,math:55,eng:55,biz:40,sci:45,design:55,arts:40},market:85,growth:85,difficulty:"Moderate",prep:"4–6 months",
+  path:["Junior Web Developer","Full-Stack Developer","Senior Full-Stack Developer","Tech Lead","Engineering Manager / Founder"],
+  req:[["js",3,1],["htmlcss",3,1],["react",2,1],["backend",2,1],["sql",2,0],["git",2,1],["cloud",1,0]],
+  advanced:["Authentication and authorization (sessions, JWT)","State management and performance in React","Deployment, environment config and basic CI"],
+  projects:[
+   {lvl:"Beginner",title:"Canteen menu & pre-order page",problem:"Long canteen queues at lunch.",tech:["HTML","CSS","JavaScript"],feat:"Responsive menu, cart, order summary with form validation.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"Hostel complaint tracker",problem:"Complaints get lost in WhatsApp groups.",tech:["React","Node.js / Django","SQL"],feat:"Student and warden roles, status updates, filters.",time:"4–5 weeks"},
+   {lvl:"Advanced",title:"Placement drive portal",problem:"Eligibility checks and resume collection are done by hand.",tech:["React","Backend API","SQL","Cloud deploy"],feat:"Login, resume upload, eligibility filters, admin export, deployed live.",time:"6–8 weeks"}],
+  certs:[{name:"Meta Front-End Developer Professional Certificate",provider:"Meta (Coursera)",diff:"Beginner",time:"3–6 months",rel:"Optional. A structured path if you are new to front-end."}],certNote:"Optional. A deployed portfolio matters more."},
+ {id:"da",name:"Data Analyst",holland:"CIE",interests:["Data Analytics","Business / Management","Product Management"],areas:["data"],
+  acad:{cs:80,ece:65,math:95,eng:60,biz:85,sci:70,design:35,arts:55},market:80,growth:75,difficulty:"Beginner Friendly",prep:"3–5 months",
+  path:["Junior Data Analyst","Data Analyst","Senior Analyst","Analytics Lead","Analytics Manager / Product Analyst"],
+  req:[["sql",3,1],["bi",3,1],["stats",2,1],["excel",2,0],["pandas",2,0],["python",2,0],["git",1,0]],
+  advanced:["Window functions and query optimisation in SQL","Dashboard design and storytelling with data","A/B test analysis and basic forecasting"],
+  projects:[
+   {lvl:"Beginner",title:"City air-quality dashboard",problem:"Pollution data is public but hard to read.",tech:["Power BI or Tableau","Public CSV data"],feat:"Monthly trends, worst-day highlights, city comparison.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"E-commerce sales & returns analysis",problem:"Which products and regions drive returns?",tech:["SQL","Power BI"],feat:"Cohort retention, return-rate drivers, executive summary page.",time:"3–4 weeks"},
+   {lvl:"Advanced",title:"Automated weekly KPI report",problem:"Managers wait days for manual reports.",tech:["Python","SQL","Scheduler"],feat:"Pulls data, checks quality, emails a chart pack every Monday.",time:"5–6 weeks"}],
+  certs:[{name:"Microsoft Power BI Data Analyst (PL-300)",provider:"Microsoft",diff:"Moderate",time:"6–8 weeks",rel:"Directly tests the dashboard skills most analyst roles ask for."},
+         {name:"Google Data Analytics Professional Certificate",provider:"Google (Coursera)",diff:"Beginner",time:"3–6 months",rel:"Good structured start if you're new to analytics."}]},
+ {id:"ds",name:"Data Scientist",holland:"ICR",interests:["Data Science","Machine Learning","Research","Data Analytics"],areas:["data","ml"],
+  acad:{cs:85,ece:65,math:95,eng:55,biz:55,sci:70,design:25,arts:35},market:75,growth:85,difficulty:"Advanced",prep:"6–9 months",
+  path:["Junior Data Scientist","Data Scientist","Senior Data Scientist","Lead / Principal Data Scientist","Head of Data Science"],
+  req:[["python",3,1],["pandas",3,1],["stats",3,1],["ml",3,1],["sql",2,0],["git",2,0],["dl",1,0]],
+  advanced:["Feature engineering and model evaluation","Experiment design and causal thinking","Model explainability (SHAP, partial dependence)"],
+  projects:[
+   {lvl:"Beginner",title:"Crop yield exploratory analysis",problem:"Which factors relate to yield in your state?",tech:["Python","Pandas","Matplotlib"],feat:"Cleaning, EDA, clear written findings.",time:"2 weeks"},
+   {lvl:"Intermediate",title:"Churn prediction with explanations",problem:"Find customers likely to leave, and why.",tech:["scikit-learn","SHAP"],feat:"Baseline vs tuned model, explainability, business recommendations.",time:"4 weeks"},
+   {lvl:"Advanced",title:"Store demand forecasting",problem:"Over- and under-stocking costs money.",tech:["Time-series models","Backtesting","Streamlit"],feat:"Multiple models, rolling backtest, interactive forecast app.",time:"6–8 weeks"}],
+  certs:[],certNote:"Few certifications carry weight here. Projects with clear evaluation and a strong statistics foundation matter more."},
+ {id:"mle",name:"Machine Learning Engineer",holland:"IRC",interests:["Machine Learning","Artificial Intelligence","Research"],areas:["ml"],
+  acad:{cs:90,ece:75,math:90,eng:50,biz:30,sci:55,design:20,arts:25},market:80,growth:95,difficulty:"Advanced",prep:"6–9 months",
+  path:["Junior ML Engineer","ML Engineer","Senior ML Engineer","Staff ML Engineer / Tech Lead","ML Platform Lead"],
+  req:[["python",3,1],["ml",3,1],["dl",2,1],["dsa",2,0],["sql",2,0],["docker",2,0],["cloud",2,0],["git",2,0]],
+  advanced:["Model serving and APIs","Experiment tracking and model registries (MLflow)","Monitoring for data drift and retraining"],
+  projects:[
+   {lvl:"Beginner",title:"Plant leaf disease classifier",problem:"Farmers struggle to identify crop diseases early.",tech:["PyTorch or TensorFlow","Transfer learning"],feat:"Pretrained CNN, augmentation, confusion matrix, error analysis.",time:"2–3 weeks"},
+   {lvl:"Intermediate",title:"Model serving API",problem:"A notebook model can't be used by an app.",tech:["FastAPI","Docker"],feat:"Input validation, versioned model, health check, latency numbers.",time:"3–4 weeks"},
+   {lvl:"Advanced",title:"ML pipeline with retraining & monitoring",problem:"Models silently degrade as data changes.",tech:["MLflow","Docker","Cloud"],feat:"Scheduled retraining, drift checks, model registry, rollback.",time:"6–8 weeks"}],
+  certs:[{name:"AWS Certified Machine Learning Engineer – Associate",provider:"AWS",diff:"Moderate",time:"2–3 months",rel:"Covers deploying and operating models on a major cloud."},
+         {name:"Professional Machine Learning Engineer",provider:"Google Cloud",diff:"Advanced",time:"3–4 months",rel:"Worth it later, after hands-on ML experience."}]},
+ {id:"cloud",name:"Cloud Engineer",holland:"RIC",interests:["Cloud Computing","DevOps"],areas:["cloud"],
+  acad:{cs:90,ece:85,math:55,eng:60,biz:30,sci:45,design:20,arts:25},market:85,growth:90,difficulty:"Moderate",prep:"4–6 months",
+  path:["Cloud Support / Junior Cloud Engineer","Cloud Engineer","Senior Cloud Engineer","Cloud Architect","Head of Cloud / Platform"],
+  req:[["cloud",3,1],["linux",2,1],["networking",2,1],["docker",2,0],["python",2,0],["git",2,0],["k8s",1,0]],
+  advanced:["Infrastructure as code (Terraform)","Identity, access and security on cloud","Cost monitoring and high availability design"],
+  projects:[
+   {lvl:"Beginner",title:"Static site on cloud storage + CDN",problem:"Hosting a club website cheaply and reliably.",tech:["AWS S3 / Azure Storage","CDN","DNS"],feat:"HTTPS, custom domain, cache settings, cost note.",time:"1 week"},
+   {lvl:"Intermediate",title:"Serverless image thumbnail service",problem:"Large photo uploads slow down apps.",tech:["Lambda / Azure Functions","Object storage"],feat:"Upload trigger, resize, error handling, logs.",time:"3 weeks"},
+   {lvl:"Advanced",title:"Three-tier app with Terraform",problem:"Manually built servers can't be reproduced.",tech:["Terraform","Load balancer","Managed DB","Monitoring"],feat:"Autoscaling, alarms, budget alert, one-command teardown.",time:"6–8 weeks"}],
+  certs:[{name:"AWS Certified Cloud Practitioner",provider:"AWS",diff:"Beginner",time:"3–4 weeks",rel:"A first step; follow with Solutions Architect – Associate."},
+         {name:"Microsoft Azure Fundamentals (AZ-900)",provider:"Microsoft",diff:"Beginner",time:"2–4 weeks",rel:"Alternative entry point if you target Azure-heavy employers."}]},
+ {id:"devops",name:"DevOps Engineer",holland:"RCI",interests:["DevOps","Cloud Computing"],areas:["cloud"],
+  acad:{cs:90,ece:80,math:50,eng:60,biz:25,sci:40,design:20,arts:25},market:80,growth:90,difficulty:"Advanced",prep:"5–8 months",
+  path:["Junior DevOps / Build Engineer","DevOps Engineer","Senior DevOps / SRE","Platform Lead","Head of Platform Engineering"],
+  req:[["linux",3,1],["git",3,1],["docker",3,1],["k8s",2,1],["cloud",2,1],["python",2,0],["networking",2,0]],
+  advanced:["CI/CD pipeline design","Kubernetes operations and Helm","Observability: metrics, logs, alerts"],
+  projects:[
+   {lvl:"Beginner",title:"Containerise an existing app",problem:"\"Works on my machine\" problems in team projects.",tech:["Docker","Docker Compose"],feat:"Multi-stage build, compose with DB, README run steps.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"CI/CD pipeline to staging",problem:"Manual deploys break things.",tech:["GitHub Actions","Docker","Cloud VM"],feat:"Tests on every push, image build, auto deploy to staging.",time:"3–4 weeks"},
+   {lvl:"Advanced",title:"Kubernetes deployment with monitoring",problem:"Teams need safe releases and alerts.",tech:["Kubernetes","Helm","Prometheus","Grafana"],feat:"Rolling updates, autoscaling, dashboards, alert rules.",time:"6–8 weeks"}],
+  certs:[{name:"Certified Kubernetes Administrator (CKA)",provider:"CNCF / Linux Foundation",diff:"Advanced",time:"2–3 months",rel:"Hands-on exam that employers recognise for Kubernetes work."},
+         {name:"HashiCorp Terraform Associate",provider:"HashiCorp",diff:"Moderate",time:"4–6 weeks",rel:"Shows infrastructure-as-code skills."}]},
+ {id:"cyber",name:"Cybersecurity Analyst",holland:"ICR",interests:["Cybersecurity"],areas:["security"],
+  acad:{cs:90,ece:85,math:55,eng:55,biz:30,sci:45,design:20,arts:30},market:80,growth:90,difficulty:"Moderate",prep:"5–7 months",
+  path:["SOC Analyst (L1)","Security Analyst","Senior Security Analyst / Incident Responder","Security Lead","Security Manager / Architect"],
+  req:[["networking",3,1],["security",3,1],["linux",2,1],["python",2,0],["cloud",1,0]],
+  advanced:["Log analysis and SIEM tools","Incident response process","Common web vulnerabilities (OWASP Top 10)"],
+  projects:[
+   {lvl:"Beginner",title:"Home lab scan & hardening report",problem:"Default settings leave systems exposed.",tech:["VirtualBox","Nmap","Linux"],feat:"Scan your own lab VMs, find open services, document fixes.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"Brute-force login detector",problem:"Repeated failed logins go unnoticed.",tech:["Python","Auth logs"],feat:"Parses logs, flags suspicious IPs, daily summary.",time:"3 weeks"},
+   {lvl:"Advanced",title:"Mini SIEM on a lab network",problem:"Alerts are scattered across machines.",tech:["Wazuh or ELK","Lab VMs"],feat:"Central logs, detection rules, a written incident playbook.",time:"6–8 weeks"}],
+  certs:[{name:"CompTIA Security+",provider:"CompTIA",diff:"Moderate",time:"2–3 months",rel:"Widely listed in entry-level security job posts."},
+         {name:"ISC2 Certified in Cybersecurity (CC)",provider:"ISC2",diff:"Beginner",time:"4–6 weeks",rel:"A lighter first certification."}]},
+ {id:"de",name:"Data Engineer",holland:"CIR",interests:["Data Analytics","Data Science","Cloud Computing"],areas:["data","cloud"],
+  acad:{cs:90,ece:70,math:80,eng:55,biz:45,sci:55,design:20,arts:30},market:85,growth:90,difficulty:"Moderate",prep:"5–7 months",
+  path:["Junior Data Engineer","Data Engineer","Senior Data Engineer","Lead Data Engineer / Architect","Head of Data Platform"],
+  req:[["sql",3,1],["python",3,1],["cloud",2,1],["pandas",2,0],["git",2,0],["linux",1,0],["docker",1,0]],
+  advanced:["Data modelling: star schema, slowly changing dimensions","Spark and distributed processing","Orchestration (Airflow) and data-quality checks"],
+  projects:[
+   {lvl:"Beginner",title:"CSV-to-database loader with validation",problem:"Messy spreadsheets break downstream reports.",tech:["Python","SQL"],feat:"Schema checks, rejected-row log, idempotent loads.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"Batch ETL pipeline with a star schema",problem:"Analysts query raw tables directly.",tech:["Airflow","PostgreSQL","dbt"],feat:"Daily DAG, fact and dimension tables, tests.",time:"4 weeks"},
+   {lvl:"Advanced",title:"Incremental lakehouse pipeline",problem:"Full reloads are slow and costly.",tech:["Spark","Parquet / Delta","Cloud storage"],feat:"Incremental merges, data-quality gates, run metrics.",time:"6–8 weeks"}],
+  certs:[{name:"Databricks Certified Data Engineer Associate",provider:"Databricks",diff:"Moderate",time:"6–8 weeks",rel:"Covers Spark and lakehouse skills used in many data teams."},
+         {name:"Microsoft Fabric Data Engineer Associate (DP-700)",provider:"Microsoft",diff:"Moderate",time:"6–8 weeks",rel:"Useful if you target Microsoft-stack employers."}]},
+ {id:"uiux",name:"UI/UX Designer",holland:"AIS",interests:["UI/UX Design","Product Management","Mobile App Development"],areas:["design","web","mobile"],
+  acad:{cs:75,ece:50,math:40,eng:55,biz:55,sci:40,design:95,arts:80},market:75,growth:80,difficulty:"Moderate",prep:"4–6 months",
+  path:["Junior UI/UX Designer","Product Designer","Senior Product Designer","Lead Designer","Design Manager / Head of Design"],
+  req:[["uiux",3,1],["htmlcss",2,0],["product",1,0],["js",1,0]],
+  advanced:["Design systems and component libraries","User research and usability testing","Accessibility (WCAG) and interaction design"],
+  projects:[
+   {lvl:"Beginner",title:"Redesign one college web page",problem:"Students can't find exam and fee information quickly.",tech:["Figma","Heuristic evaluation"],feat:"Problems found, before/after screens, reasons for each change.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"Canteen ordering app, tested with users",problem:"Ordering at the counter wastes the lunch break.",tech:["Figma prototype","Usability test"],feat:"Clickable flow, 5 user tests, findings and a second iteration.",time:"3–4 weeks"},
+   {lvl:"Advanced",title:"Design system for a student app",problem:"Screens built by different people look inconsistent.",tech:["Figma components","Design tokens","WCAG checks"],feat:"Colour and type tokens, components with states, contrast checks, developer handoff notes.",time:"6–8 weeks"}],
+  certs:[{name:"Google UX Design Professional Certificate",provider:"Google (Coursera)",diff:"Beginner",time:"3–6 months",rel:"A structured start; your portfolio still matters most."}],certNote:"A portfolio with case studies matters more than any certificate."},
+ {id:"pa",name:"Product Analyst",holland:"EIC",interests:["Product Management","Data Analytics","Business / Management","Entrepreneurship"],areas:["data"],
+  acad:{cs:75,ece:60,math:85,eng:60,biz:90,sci:60,design:50,arts:50},market:75,growth:80,difficulty:"Moderate",prep:"3–5 months",
+  path:["Associate Product Analyst","Product Analyst","Senior Product Analyst","Analytics / Product Lead","Product Manager / Head of Analytics"],
+  req:[["sql",3,1],["product",2,1],["stats",2,1],["excel",2,1],["bi",2,0],["python",1,0]],
+  advanced:["Funnel, cohort and retention analysis","A/B test design and analysis","Defining product metrics and dashboards"],
+  projects:[
+   {lvl:"Beginner",title:"Feature usage funnel",problem:"Where do users drop off in a sign-up flow?",tech:["SQL","Spreadsheet"],feat:"Funnel steps, drop-off rates, three improvement ideas.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"A/B test analysis report",problem:"Did a new checkout button really help?",tech:["Python or Excel","Statistics"],feat:"Sample sizes, significance test, a clear ship / don't-ship recommendation.",time:"3 weeks"},
+   {lvl:"Advanced",title:"Product metrics dashboard",problem:"The team argues about what success means.",tech:["SQL","Power BI","Metric definitions"],feat:"North star metric, supporting metrics, weekly insight memo.",time:"5–6 weeks"}],
+  certs:[],certNote:"No certification is commonly required. Case-study style projects and SQL skill matter most."},
+ {id:"mobile",name:"Mobile App Developer",holland:"IAR",interests:["Mobile App Development","Software Development","UI/UX Design"],areas:["mobile","software"],
+  acad:{cs:90,ece:75,math:55,eng:55,biz:30,sci:45,design:50,arts:30},market:75,growth:75,difficulty:"Moderate",prep:"4–6 months",
+  path:["Junior Mobile Developer","Mobile Developer","Senior Mobile Developer","Mobile Lead","Engineering Manager"],
+  req:[["mobile",3,1],["lang",2,1],["git",2,1],["backend",1,0],["uiux",1,0],["sql",1,0]],
+  advanced:["App architecture (MVVM) and state management","Offline storage and sync","Publishing, crash reporting and performance"],
+  projects:[
+   {lvl:"Beginner",title:"Class attendance tracker",problem:"Students lose track of how many classes they've missed.",tech:["Kotlin or Flutter","Local storage"],feat:"Subjects, attendance %, warning below the required level.",time:"1–2 weeks"},
+   {lvl:"Intermediate",title:"Bus timings app with a live API",problem:"Bus timings change and paper charts go stale.",tech:["REST API","Caching"],feat:"Loading and error states, offline cache, favourites.",time:"3–4 weeks"},
+   {lvl:"Advanced",title:"Campus marketplace app",problem:"Students buy and sell books through scattered chats.",tech:["Auth","Image upload","Push notifications"],feat:"Listings, chat, notifications, published to a store test track.",time:"6–8 weeks"}],
+  certs:[],certNote:"No certification is commonly required. A published app is the strongest proof."},
+ {id:"game",name:"Game Developer",holland:"AIR",interests:["Game Development","Software Development"],areas:["game","software"],
+  acad:{cs:90,ece:65,math:70,eng:55,biz:25,sci:50,design:70,arts:50},market:60,growth:75,difficulty:"Advanced",prep:"6–9 months",
+  path:["Junior Game Developer","Game Developer","Senior Game Developer","Lead Developer","Technical Director"],
+  req:[["gameengine",3,1],["dsa",2,1],["git",2,0],["cpp",1,0]],
+  advanced:["Game physics and collision","Performance profiling","Multiplayer networking basics"],
+  projects:[
+   {lvl:"Beginner",title:"2D endless runner",problem:"Learn the game loop end to end.",tech:["Unity","C#"],feat:"Input, obstacles, scoring, increasing difficulty.",time:"2 weeks"},
+   {lvl:"Intermediate",title:"Puzzle game with a level editor",problem:"Hand-coding levels is slow.",tech:["Unity or Godot","Save system"],feat:"10 levels, editor, saved progress, settings menu.",time:"4–5 weeks"},
+   {lvl:"Advanced",title:"Small multiplayer arena game",problem:"Players want to play with friends online.",tech:["Unity Netcode or Unreal","Profiling"],feat:"Online matches, lag handling, playtest notes, build released on itch.io.",time:"8 weeks"}],
+  certs:[{name:"Unity Certified User: Programmer",provider:"Unity",diff:"Beginner",time:"4–6 weeks",rel:"Optional entry-level proof of Unity scripting."}],certNote:"Optional. Shipped, playable games matter far more."}
+];
+const CAREER_BY_ID=Object.fromEntries(CAREERS.map(c=>[c.id,c]));
+
+const EXAMPLE={name:"Priya",country:"India",location:"Coimbatore",prefLocation:"Bangalore",workMode:"Hybrid",degree:"B.Tech",major:"cs",year:"3rd year",cgpa:"8.1",college:"",
+  strengths:"Databases, discrete maths",weaknesses:"Operating systems",
+  skills:{python:2,java:1,dsa:1,htmlcss:1,sql:2,excel:2,pandas:1,bi:1,stats:1,git:1},quiz:{},
+  interests:["Data Analytics","Data Science","Business / Management"],riasec:{},target:"",hours:10,shortGoal:"Get a data internship next summer",longGoal:"",
+  projects:[{name:"Movie ratings analysis in Excel",area:"data"},{name:"Library management system (Java)",area:"software"}],
+  intern:"0",coding:"1",certs:"0",resume:"draft",comm:3,fb:{rel:7,clar:7,use:7,chosen:"",consent:false},_example:true};
+const BLANK={name:"",country:"",location:"",prefLocation:"",workMode:"",degree:"",major:"",year:"",cgpa:"",college:"",strengths:"",weaknesses:"",
+  skills:{},quiz:{},interests:[],riasec:{},target:"",hours:10,shortGoal:"",longGoal:"",projects:[],intern:"0",coding:"0",certs:"0",resume:"none",comm:3,
+  fb:{rel:7,clar:7,use:7,chosen:"",consent:false},_example:false};
+const clone=o=>JSON.parse(JSON.stringify(o));
+
+/* =================== STATE =================== */
+const KEY="career-compass-profile-v2";
+let S;
+try{const raw=localStorage.getItem(KEY)||localStorage.getItem("career-compass-profile-v1");S=raw?JSON.parse(raw):null}catch(e){S=null}
+if(!S||typeof S!=="object")S=clone(EXAMPLE);
+S=Object.assign(clone(BLANK),S);S.fb=Object.assign(clone(BLANK.fb),S.fb||{});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const pct=v=>Math.round(v*100)+"%";
+const arr=x=>Array.isArray(x)?x:[];
+
+/* =================== ENGINE =================== */
+function selfLvl(k){if(k==="lang")return Math.max(selfLvl("python"),selfLvl("java"),selfLvl("cpp"));return S.skills[k]||0}
+function effLvl(k){if(k==="lang")return Math.max(effLvl("python"),effLvl("java"),effLvl("cpp"));
+  const s=S.skills[k]||0;const q=S.quiz[k];return (q==null||s===0)?s:Math.min(s,q+1)}
+function ratedSkills(){return ALL_SKILLS.filter(k=>(S.skills[k]||0)>0)}
+function skillMatch(c){let tot=0,wt=0;c.req.forEach(([k,r,core])=>{const w=core?2:1;tot+=w*Math.min(effLvl(k),r)/r;wt+=w;});return Math.round(tot/wt*100)}
+function riasecScores(){const out={};let answered=0;
+  RIASEC.forEach(([t])=>{const vals=[];RIASEC_ITEMS.forEach((it,i)=>{if(it[0]===t&&S.riasec[i]>=1)vals.push(S.riasec[i])});
+    answered+=vals.length;out[t]=vals.length?Math.round((vals.reduce((a,b)=>a+b,0)/vals.length-1)/4*100):null;});
+  return {scores:out,complete:answered===RIASEC_ITEMS.length,answered}}
+function hollandCode(){const r=riasecScores();if(!r.complete)return "";return Object.entries(r.scores).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]).join("")}
+function pickScore(c){const rs=[100,85,70,60,60];let best=null;S.interests.forEach((i,ix)=>{if(c.interests.includes(i)){const v=c.interests[0]===i?rs[ix]:rs[ix]-10;best=Math.max(best??0,v)}});return best}
+function riasecFit(c){const r=riasecScores();if(!r.complete)return null;const L=c.holland.split("");return Math.round(.5*r.scores[L[0]]+.3*r.scores[L[1]]+.2*r.scores[L[2]])}
+function interestMatch(c){const p=pickScore(c),r=riasecFit(c);
+  if(r!=null&&S.interests.length)return Math.round(.5*(p??25)+.5*r);
+  if(r!=null)return r;return p??25}
+function relevantProjects(c){return S.projects.filter(p=>c.areas.includes(p.area)).length}
+function projectScore(c,withIntern){const n=relevantProjects(c);const other=S.projects.length-n;let s=[10,55,75,90][Math.min(n,3)]+Math.min(other*5,10);
+  if(withIntern&&Number(S.intern)>0)s+=10;return clamp(s,0,100)}
+function academic(c){return S.major?c.acad[S.major]:50}
+function pref(c){return !S.target?60:(S.target===c.id?100:40)}
+function scoreCareer(c){const f={academic:academic(c),skill:skillMatch(c),interest:interestMatch(c),project:projectScore(c,true),market:c.market,growth:c.growth,pref:pref(c)};
+  let total=0;for(const k in W)total+=f[k]*W[k];return {c,f,total:Math.round(total)}}
+function rankAll(){return CAREERS.map(scoreCareer).sort((a,b)=>b.total-a.total)}
+function gapRows(c){return c.req.map(([k,r,core])=>{const cur=effLvl(k),self=selfLvl(k);const gap=Math.max(0,r-cur);
+  let pr="Met",cls="p-met";if(gap>0){if(core&&gap>=2){pr="Critical";cls="p-crit"}else if(core||gap>=2){pr="High";cls="p-high"}else{pr="Medium";cls="p-med"}}
+  return {k,name:SKILL_NAME[k],cur,self,req:r,gap,core,pr,cls,rank:(gap>0?(core?2:1)*10+gap:0)}})}
+function readiness(best){
+  const relN=relevantProjects(best.c);
+  const parts=[
+    ["tech","Technical skills",.30,skillMatch(best.c)],
+    ["proj","Projects",.20,[0,55,75,90][Math.min(relN,3)]],
+    ["exp","Internship / experience",.15,{"0":0,"1":50,"3":75,"6":100}[S.intern]??0],
+    ["resume","Resume",.10,{none:0,draft:45,reviewed:85}[S.resume]??0],
+    ["comm","Communication",.10,Math.round(((Number(S.comm)||1)-1)/4*100)],
+    ["code","Problem solving / coding",.10,[0,30,55,75,90][Number(S.coding)||0]],
+    ["cert","Certifications",.05,[0,70,100][Number(S.certs)||0]]];
+  return {parts,total:Math.round(parts.reduce((a,p)=>a+p[2]*p[3],0))};
+}
+const ACTIONS={
+  tech:c=>`Close your top skill gap for ${c.name} before adding new tools.`,
+  proj:c=>`Build one project in the ${c.name} area and publish it with a README or case study.`,
+  exp:()=>"Apply to 5 internships or open-source issues this month; small, regular applications add up.",
+  resume:()=>"Write or update your resume and run it through an ATS checker.",
+  comm:()=>"Explain one of your projects out loud in 2 minutes, record it, and repeat weekly.",
+  code:()=>"Solve 3–4 problems a week, starting with arrays, strings and hashing.",
+  cert:c=>c.certs.length?`Consider ${c.certs[0].name} once your core skills are in place.`:"Skip certifications for now; put that time into projects."
+};
+function weeks(lo,hi){const h=Number(S.hours)||10;const m=clamp(10/h,.6,2.5);const a=Math.max(1,Math.round(lo*m)),b=Math.max(a,Math.round(hi*m));
+  return {a,b,txt:a===b?`${a} week${a>1?"s":""}`:`${a}–${b} weeks`}}
+
+/* =================== FORM =================== */
+function fillSelect(id,opts){$(id).innerHTML=opts.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("")}
+fillSelect("#f_major",MAJORS);
+fillSelect("#f_target",[["","Not decided yet"],...CAREERS.map(c=>[c.id,c.name])]);
+fillSelect("#f_intern",INTERN);fillSelect("#f_coding",CODING);fillSelect("#f_certs",CERTS);fillSelect("#f_resume",RESUME);
+
+function buildSeg(name,values){
+  const el=document.querySelector(`[data-seg="${name}"]`);
+  el.innerHTML=values.map(v=>`<button type="button" data-v="${esc(v)}" aria-pressed="false">${esc(v)}</button>`).join("");
+  el.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+    const v=name==="comm"?Number(b.dataset.v):b.dataset.v;S[name]=(S[name]===v&&name!=="comm")?"":v;S._example=false;syncSeg(name);update();});
+}
+function syncSeg(name){document.querySelectorAll(`[data-seg="${name}"] button`).forEach(b=>{
+  const v=name==="comm"?Number(b.dataset.v):b.dataset.v;b.setAttribute("aria-pressed",String(S[name]===v));});}
+buildSeg("workMode",WORKMODES);buildSeg("comm",["1","2","3","4","5"]);
+
+$("#skillGrid").innerHTML=SKILL_GROUPS.map(([g,list])=>`<div class="skillgroup"><p class="label">${esc(g)}</p>${
+  list.map(([k,n])=>`<div class="skillrow"><span class="name" id="sk_${k}">${esc(n)}<span class="vtag" id="vt_${k}"></span></span><div class="lv" role="group" aria-labelledby="sk_${k}" data-skill="${k}">${
+    [0,1,2,3,4].map(l=>`<button type="button" data-l="${l}" title="${LEVELS[l]}" aria-label="${LEVELS[l]}" aria-pressed="false">${l}</button>`).join("")}</div></div>`).join("")}</div>`).join("");
+$("#skillGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-l]");if(!b)return;
+  const k=b.parentElement.dataset.skill;const l=Number(b.dataset.l);if(l===0)delete S.skills[k];else S.skills[k]=l;S._example=false;syncSkills();update();});
+function syncSkills(){document.querySelectorAll(".lv").forEach(g=>{const k=g.dataset.skill;const cur=S.skills[k]||0;
+  g.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.l)===cur)));
+  const tag=$("#vt_"+k);const q=S.quiz[k];
+  if(q==null||!cur){tag.textContent="";tag.className="vtag"}
+  else{const e=effLvl(k);tag.textContent=e<cur?`Check ${q}/3 · counted as ${LEVELS[e]}`:`Check ${q}/3 · verified`;tag.className="vtag "+(e<cur?"cap":"ok")}
+});}
+
+function renderChips(){$("#interestChips").innerHTML=INTERESTS.map(i=>{const r=S.interests.indexOf(i);
+  return `<button type="button" class="chip" data-i="${esc(i)}" aria-pressed="${r>=0}">${r>=0?`<span class="rk">${r+1}</span>`:""}${esc(i)}</button>`}).join("");}
+$("#interestChips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;const i=b.dataset.i;const r=S.interests.indexOf(i);
+  if(r>=0)S.interests.splice(r,1);else if(S.interests.length<5)S.interests.push(i);S._example=false;renderChips();update();});
+
+$("#riasecItems").innerHTML=RIASEC_ITEMS.map(([t,txt],i)=>`<div class="ritem"><span id="ri_${i}">${esc(txt)}</span><div class="lik" role="group" aria-labelledby="ri_${i}" data-ri="${i}">${
+  [1,2,3,4,5].map(v=>`<button type="button" data-v="${v}" aria-pressed="false" aria-label="${v}">${v}</button>`).join("")}</div></div>`).join("");
+$("#riasecItems").addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;const i=b.parentElement.dataset.ri;
+  S.riasec[i]=Number(b.dataset.v);S._example=false;syncRiasec();update();});
+function syncRiasec(){document.querySelectorAll(".lik[data-ri]").forEach(g=>{const v=S.riasec[g.dataset.ri];g.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.v)===v)))});
+  const r=riasecScores();$("#riasecStatus").textContent=r.complete?`Your code: ${hollandCode()}`:`${r.answered}/${RIASEC_ITEMS.length} answered`;
+  $("#riasecResult").innerHTML=r.complete?`<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+    <div class="hcode">${RIASEC.map(([t,n])=>`<span>${t} ${n}: ${r.scores[t]}</span>`).join("")}</div>
+    <p class="hint">Your top three types (${hollandCode()}) now count for half of the Interest Match score; your picks above count for the other half. <button type="button" class="linkbtn" id="riasecReset" style="font-size:13px">Reset answers</button></p></div>`:"";
+  const rb=$("#riasecReset");if(rb)rb.onclick=()=>{S.riasec={};syncRiasec();update();};
+}
+
+function renderProjects(){
+  const opts=AREAS.map(([v,t])=>`<option value="${v}">${esc(t)}</option>`).join("");
+  $("#projList").innerHTML=S.projects.length?S.projects.map((p,i)=>`<div class="projrow">
+    <input type="text" id="pj_n_${i}" data-pi="${i}" data-pf="name" value="${esc(p.name)}" placeholder="Project name" aria-label="Project ${i+1} name">
+    <select id="pj_a_${i}" data-pi="${i}" data-pf="area" aria-label="Project ${i+1} area">${opts}</select>
+    <button type="button" class="iconbtn" data-del="${i}" aria-label="Remove project ${i+1}">×</button></div>`).join(""):`<p class="hint">No projects added yet.</p>`;
+  S.projects.forEach((p,i)=>{$("#pj_a_"+i).value=p.area||"other"});
+}
+$("#projList").addEventListener("input",e=>{const t=e.target;if(t.dataset.pi==null)return;S.projects[+t.dataset.pi][t.dataset.pf]=t.value;S._example=false;update();});
+$("#projList").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;S.projects.splice(+b.dataset.del,1);S._example=false;renderProjects();update();});
+$("#addProj").addEventListener("click",()=>{S.projects.push({name:"",area:"other"});renderProjects();$("#pj_n_"+(S.projects.length-1)).focus();});
+
+document.querySelectorAll("[data-k]").forEach(el=>{
+  el.addEventListener("input",()=>{const k=el.dataset.k;S[k]=k==="hours"?(el.value===""?"":Number(el.value)):el.value;S._example=false;update();});
+});
+function syncFields(){document.querySelectorAll("[data-k]").forEach(el=>{el.value=S[el.dataset.k]??""});}
+function syncAll(){syncFields();syncSeg("workMode");syncSeg("comm");syncSkills();renderChips();syncRiasec();renderProjects();}
+
+$("#loadExample").addEventListener("click",()=>{S=Object.assign(clone(BLANK),clone(EXAMPLE));submitMsg=null;syncAll();showStep(UI.step);update(true);});
+$("#clearAll").addEventListener("click",()=>{S=clone(BLANK);submitMsg=null;syncAll();showStep(0);update(true);});
+
+/* =================== QUIZ =================== */
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function order(n,seed){const a=[...Array(n).keys()];let x=seed||1;for(let i=n-1;i>0;i--){x=(Math.imul(x,1103515245)+12345)>>>0;const j=x%(i+1);const tmp=a[i];a[i]=a[j];a[j]=tmp}return a}
+let quizSkill=null,quizChecked=false,lastFocus=null;
+function openQuiz(k){lastFocus=document.activeElement;quizSkill=k||null;quizChecked=false;$("#quiz").hidden=false;renderQuiz();}
+function closeQuiz(){$("#quiz").hidden=true;quizSkill=null;if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+$("#openQuiz").addEventListener("click",()=>openQuiz());
+$("#quiz").addEventListener("click",e=>{if(e.target.id==="quiz")closeQuiz()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#quiz").hidden)closeQuiz()});
+function renderQuiz(){
+  const Pn=$("#qpanel");
+  if(!quizSkill){
+    const ks=ratedSkills();
+    Pn.innerHTML=`<div class="sechead"><h2 id="quizTitle">Skill check</h2><button type="button" class="btn small" data-close>Close</button></div>
+     <p class="muted" style="font-size:14px">Three questions per skill: beginner, intermediate, advanced. Your level counts up to one step above the number you get right, and never above your own rating.</p>
+     ${ks.length?`<div class="qlist">${ks.map(k=>{const q=S.quiz[k];const e=effLvl(k),s=S.skills[k];
+       return `<div class="qrow"><div><strong>${esc(SKILL_NAME[k])}</strong><br><span class="note">You said ${LEVELS[s]}${q==null?" · not checked":` · scored ${q}/3 · counted as ${LEVELS[e]}`}</span></div>
+       <button type="button" class="btn small ${q==null?"primary":""}" data-skill="${k}">${q==null?"Start":"Retake"}</button></div>`}).join("")}</div>`
+     :`<p class="empty">Rate at least one skill first, then come back.</p>`}`;
+  }else{
+    const qs=QUIZ[quizSkill];
+    Pn.innerHTML=`<div class="sechead"><h2 id="quizTitle">${esc(SKILL_NAME[quizSkill])}</h2><button type="button" class="btn small" data-back>All skills</button></div>
+     <form id="qform">${qs.map(([q,opts],qi)=>{const ord=order(opts.length,hash(quizSkill+qi));
+       return `<fieldset class="q"><legend>${qi+1}. ${esc(q)} <span class="label" style="margin-left:6px">${["Beginner","Intermediate","Advanced"][qi]}</span></legend>${
+       ord.map(oi=>`<label class="opt" data-q="${qi}" data-o="${oi}"><input type="radio" name="q${qi}" value="${oi}" id="q_${quizSkill}_${qi}_${oi}"><span>${esc(opts[oi])}</span></label>`).join("")}</fieldset>`}).join("")}
+     <div class="btnrow" style="margin-top:6px"><button type="submit" class="btn primary" id="qsubmit">Check answers</button><span class="note" id="qmsg" role="status"></span></div></form>`;
+    $("#qform").addEventListener("submit",e=>{e.preventDefault();
+      if(quizChecked){quizSkill=null;renderQuiz();return}
+      const ans=qs.map((_,qi)=>{const r=$("#qform").querySelector(`input[name="q${qi}"]:checked`);return r?Number(r.value):null});
+      if(ans.some(a=>a==null)){$("#qmsg").textContent="Answer all three questions first.";return}
+      const correct=ans.filter(a=>a===0).length;S.quiz[quizSkill]=correct;S._example=false;quizChecked=true;
+      $("#qform").querySelectorAll(".opt").forEach(l=>{const qi=+l.dataset.q,oi=+l.dataset.o;if(oi===0)l.classList.add("right");else if(ans[qi]===oi)l.classList.add("wrong");l.querySelector("input").disabled=true});
+      const eff=effLvl(quizSkill),self=S.skills[quizSkill];
+      $("#qmsg").textContent=`${correct}/3 correct. ${eff<self?`Counted as ${LEVELS[eff]} instead of ${LEVELS[self]}.`:`Your ${LEVELS[self]} rating stands.`}`;
+      $("#qsubmit").textContent="Back to all skills";syncSkills();update();});
+  }
+  Pn.querySelectorAll("[data-close]").forEach(b=>b.onclick=closeQuiz);
+  Pn.querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{quizSkill=null;renderQuiz()});
+  Pn.querySelectorAll("[data-skill]").forEach(b=>b.onclick=()=>{quizSkill=b.dataset.skill;quizChecked=false;renderQuiz()});
+  const f=Pn.querySelector("button");if(f)f.focus();
+}
+
+/* =================== VIEWS + WIZARD =================== */
+const UIKEY="career-compass-ui-v1";
+let UI={view:"home",step:0,tab:"overview"};
+try{const u=JSON.parse(localStorage.getItem(UIKEY)||"null");if(u&&typeof u==="object")UI=Object.assign(UI,u)}catch(e){}
+function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify(UI))}catch(e){}}
+const VIEWS={home:"view_home",wizard:"view_wizard",report:"view_report",eval:"evalView"};
+function go(v,opts){
+  if(v==="eval"&&!(P.admin&&P.db))v="report";
+  if(!VIEWS[v])v="home";
+  UI.view=v;saveUI();
+  Object.entries(VIEWS).forEach(([k,id])=>{$("#"+id).hidden=k!==v});
+  document.querySelectorAll("nav.main button").forEach(b=>{if(b.dataset.go===v)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+  if(v==="wizard")showStep(UI.step);
+  if(v==="report")render();
+  if(v==="eval")renderEval();
+  if(!(opts&&opts.keepScroll))window.scrollTo(0,0);
+}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+document.querySelectorAll("[data-proxy]").forEach(b=>b.addEventListener("click",()=>$("#"+b.dataset.proxy).click()));
+$("#startBtn").addEventListener("click",()=>{if(S._example){S=clone(BLANK);submitMsg=null;syncAll();save()}UI.step=0;go("wizard")});
+$("#sampleBtn").addEventListener("click",()=>{S=Object.assign(clone(BLANK),clone(EXAMPLE));submitMsg=null;syncAll();save();UI.tab="overview";go("report")});
+
+const STEPS=[["About you","Basic details and where you would like to work."],["Education","Your degree, year and how your studies are going."],["Technical skills","Rate only what you have actually used. Leave a skill at 0 if you have only heard of it."],["Interests","Pick what you enjoy, then take the short interest test for a more reliable picture."],["Goals","What you are aiming for and how much time you can study each week."],["Projects & experience","What you have built and done so far."]];
+function stepDone(i){
+  switch(i){
+    case 0:return !!(S.name||S.country||S.workMode);
+    case 1:return !!(S.degree||S.major);
+    case 2:return Object.keys(S.skills).length>0;
+    case 3:return S.interests.length>0||riasecScores().answered>0;
+    case 4:return !!(S.target||S.shortGoal);
+    case 5:return S.projects.length>0||String(S.intern)!=="0";
+  }return false;
+}
+function renderStepList(){
+  $("#stepList").innerHTML=STEPS.map(([t],i)=>`<li><button type="button" data-step="${i}" class="${stepDone(i)?"done":""}"${i===UI.step?' aria-current="step"':""}><span class="dot">${stepDone(i)&&i!==UI.step?"✓":i+1}</span><span>${esc(t)}</span></button></li>`).join("");
+  $("#stepList").querySelectorAll("button[data-step]").forEach(b=>b.onclick=()=>showStep(+b.dataset.step,true));
+}
+function showStep(i,focus){
+  UI.step=clamp(i|0,0,STEPS.length-1);saveUI();
+  document.querySelectorAll(".stepsec").forEach(s=>s.hidden=+s.dataset.step!==UI.step);
+  $("#wiz_h").textContent=STEPS[UI.step][0];$("#wiz_desc").textContent=STEPS[UI.step][1];
+  $("#stepCount").textContent=`Step ${UI.step+1} of ${STEPS.length}`;
+  $("#stepBar").style.width=Math.round((UI.step+1)/STEPS.length*100)+"%";
+  $("#prevStep").disabled=UI.step===0;
+  $("#nextStep").textContent=UI.step===STEPS.length-1?"See my report":"Next";
+  renderStepList();
+  if(focus){window.scrollTo(0,0);$("#wiz_h").setAttribute("tabindex","-1");$("#wiz_h").focus({preventScroll:true})}
+}
+$("#prevStep").addEventListener("click",()=>showStep(UI.step-1,true));
+$("#nextStep").addEventListener("click",()=>{if(UI.step===STEPS.length-1){UI.tab="overview";go("report")}else showStep(UI.step+1,true)});
+
+function setRTab(t){
+  UI.tab=t;saveUI();
+  document.querySelectorAll("[data-rtab]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.rtab===t)));
+  ["overview","skills","plan","ready","feedback"].forEach(k=>{$("#panel_"+k).hidden=k!==t});
+}
+document.querySelectorAll("[data-rtab]").forEach(b=>b.addEventListener("click",()=>setRTab(b.dataset.rtab)));
+
+/* =================== REPORT =================== */
+function bar(p){return `<div class="bar" aria-hidden="true"><i style="width:${clamp(p,0,100)}%"></i></div>`}
+function levelDots(cur,req){return `<span class="levelbar" aria-hidden="true">${[1,2,3,4].map(i=>`<i class="${i<=cur?"on":""} ${i===req?"req":""}"></i>`).join("")}</span>`}
+function gauge(v){const r=60,c=2*Math.PI*r,off=c*(1-v/100);
+  return `<svg class="gauge" viewBox="0 0 150 150" role="img" aria-label="Job readiness ${v} out of 100">
+   <circle cx="75" cy="75" r="${r}" fill="none" stroke="var(--sunk)" stroke-width="14"/>
+   <circle cx="75" cy="75" r="${r}" fill="none" stroke="var(--accent)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 75 75)"/>
+   <text x="75" y="80" text-anchor="middle" fill="var(--ink)" style="font:700 36px var(--display)">${v}</text>
+   <text x="75" y="102" text-anchor="middle" fill="var(--muted)" style="font:500 12px var(--mono)">/ 100</text></svg>`}
+function phase(n,t,dur,items){return `<div class="phase"><div class="ph"><span class="label">${n}</span><h3>${t}</h3><span class="mono muted" style="font-size:13.5px">${dur}</span></div><ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`}
+function haveList(c){const h=c.req.filter(([k])=>effLvl(k)>0).map(([k])=>`${SKILL_NAME[k]} (${LEVELS[effLvl(k)]})`);return h.length?esc(h.join(", ")):"None of the listed skills yet"}
+function missingList(c){const m=c.req.filter(([k,r])=>effLvl(k)<r).map(([k])=>SKILL_NAME[k]);return m.length?esc(m.join(", ")):"Nothing at the listed levels"}
+function whyText(s){
+  const f=s.f;const bits=[];const rf=riasecFit(s.c);
+  [["skill","your current skills cover "+f.skill+"% of what this role needs"],["interest",f.interest>=70?(rf!=null&&rf>=60?"it fits your interest profile":"it lines up with an interest you ranked highly"):""],
+   ["academic",f.academic>=80?"your field of study is a strong fit":""],["project",f.project>=55?"you already have relevant project work":""],["pref",f.pref===100?"it's the role you are targeting":""]]
+   .forEach(([k,t])=>{if(t)bits.push(t)});
+  let txt=bits.length?("Ranks here because "+bits.slice(0,3).join(", ")+"."):"Ranks here mainly on general market relevance and growth.";
+  if(f.interest<=30&&(S.interests.length||riasecScores().complete))txt+=" It doesn't match your interests well, so weigh that carefully.";
+  if(f.project<=15)txt+=" You have no projects in this area yet.";
+  return txt;
+}
+
+function render(){
+  renderStepList();
+  if($("#view_report").hidden)return;
+  const openSet=new Set([...document.querySelectorAll("#view_report details[open]")].map(d=>d.dataset.key));
+  const scored=rankAll();const top=scored.slice(0,5);const best=top[0];const c=best.c;
+  const rows=gapRows(c);const gaps=rows.filter(r=>r.gap>0).sort((a,b)=>b.rank-a.rank);
+  const R=readiness(best);
+  const skillCount=Object.keys(S.skills).filter(k=>effLvl(k)>=2).length;
+  const anySkill=Object.keys(S.skills).length>0;
+  const relN=relevantProjects(c);const nextLvl=relN===0?0:relN===1?1:2;
+  const nm=S.name?esc(S.name):"";
+  const ratedN=ratedSkills().length,quizN=ratedSkills().filter(k=>S.quiz[k]!=null).length;
+  const hc=hollandCode();
+
+  const summaryBits=[];
+  if(S.degree||S.year||S.major){summaryBits.push(`${esc([S.year,S.degree].filter(Boolean).join(" "))||"Student"}${S.major?` in ${esc(MAJORS.find(m=>m[0]===S.major)[1])}`:""}${S.cgpa?`, CGPA/score ${esc(S.cgpa)}`:""}.`)}
+  summaryBits.push(`${skillCount} skill${skillCount===1?"":"s"} at Intermediate or above.`);
+  if(S.interests.length)summaryBits.push(`Top interests: ${S.interests.slice(0,3).map(esc).join(", ")}.`);
+  summaryBits.push(`${S.projects.length} project${S.projects.length===1?"":"s"}; internship: ${esc(INTERN.find(x=>x[0]===String(S.intern))[1].toLowerCase())}.`);
+  if(S.target)summaryBits.push(`Target role: ${esc(CAREER_BY_ID[S.target].name)}.`);
+  if(S.shortGoal)summaryBits.push(`Goal: ${esc(S.shortGoal)}.`);
+
+  const P1=weeks(2,4),P2=weeks(4,8),P3=weeks(4,8),P4=weeks(4,8),P5=weeks(2,4);
+  const totalLo=P1.a+P2.a+P3.a+P4.a+P5.a,totalHi=P1.b+P2.b+P3.b+P4.b+P5.b;
+  const foundation=gaps.filter(g=>g.cur<=1&&g.core);
+  const coreRest=gaps.filter(g=>!(g.cur<=1&&g.core));
+  const strong=R.parts.filter(p=>p[3]>=70),weak=R.parts.filter(p=>p[3]<50).sort((a,b)=>b[2]*(100-b[3])-a[2]*(100-a[3]));
+  const weakest=R.parts.slice().sort((a,b)=>b[2]*(100-b[3])-a[2]*(100-a[3]))[0];
+  const topGap=gaps[0];
+
+  const breakdown=(s)=>`<div class="scroll"><table class="sheet"><thead><tr><th>Factor</th><th class="n">Score</th><th class="n">Weight</th><th class="n">Points</th></tr></thead><tbody>${
+    Object.keys(W).map(k=>`<tr><td>${FACTOR_LABEL[k]}${k==="interest"&&riasecFit(s.c)!=null?` <span class="muted">(${S.interests.length?"picks + ":""}interest test, role code ${s.c.holland})</span>`:""}${k==="skill"&&quizN?` <span class="muted">(quiz-adjusted)</span>`:""}</td><td class="n">${s.f[k]}</td><td class="n">× ${W[k].toFixed(2)}</td><td class="n">${(s.f[k]*W[k]).toFixed(1)}</td></tr>`).join("")
+  }</tbody><tfoot><tr><td>Compatibility</td><td></td><td></td><td class="n">${s.total}%</td></tr></tfoot></table></div>`;
+
+  /* head */
+  $("#reportHead").innerHTML=`
+   ${S._example?`<div class="banner">You are viewing a <strong>sample report</strong> for an example student. <button type="button" class="linkbtn" data-act="start">Start your own assessment</button></div>`:""}
+   ${!anySkill?`<div class="banner">No skills rated yet, so every skill score is zero. <button type="button" class="linkbtn" data-act="skills">Rate your skills</button></div>`:""}
+   <div class="rhead">
+     <div><p class="label">Career report</p><h1 style="font-size:clamp(28px,3.6vw,38px);margin-top:6px">${nm?nm+"'s career report":"Your career report"}${S._example?`<span class="example-tag">Sample</span>`:""}</h1><p>${summaryBits.join(" ")}</p></div>
+     <div class="btnrow"><button type="button" class="btn" data-act="edit">Edit profile</button></div>
+   </div>`;
+
+  /* KPIs */
+  $("#kpis").innerHTML=`
+   <div class="kpi lead"><span class="label">Best match</span><b>${best.total}<small>%</small></b><span class="sub">${esc(c.name)}</span></div>
+   <div class="kpi"><span class="label">Job readiness</span><b>${R.total}<small> / 100</small></b><span class="sub">For ${esc(c.name)}</span></div>
+   <div class="kpi"><span class="label">Skills verified</span><b>${quizN}<small> / ${ratedN}</small></b><span class="sub">${quizN<ratedN?`<button type="button" class="linkbtn" data-openquiz>Check the rest</button>`:"All rated skills checked"}</span></div>
+   <div class="kpi"><span class="label">Interest code</span><b class="mono" style="font-family:var(--mono)">${hc||"—"}</b><span class="sub">${hc?"Holland (RIASEC) top three":`<button type="button" class="linkbtn" data-act="interests">Take the interest test</button>`}</span></div>`;
+
+  /* overview */
+  $("#panel_overview").innerHTML=`
+   <div class="rgrid">
+    <div class="stack">
+     <section class="sec" aria-labelledby="h_best">
+      <div class="hero2">
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+          <p class="label">Best match</p>
+          <h2 id="h_best" style="font-size:clamp(26px,3vw,32px)">${esc(c.name)}</h2>
+          <p class="muted">${whyText(best)}</p>
+        </div>
+        <div class="bignum">${best.total}<small>%</small></div>
+      </div>
+      <div class="meta">
+        <div><span class="label">Difficulty</span><span>${c.difficulty}</span></div>
+        <div><span class="label">Typical preparation</span><span>${c.prep}</span></div>
+        <div><span class="label">Your plan at ${Number(S.hours)||10} h/week</span><span>${totalLo}–${totalHi} weeks</span></div>
+        <div><span class="label">Role's Holland code</span><span class="mono">${c.holland}</span></div>
+      </div>
+      <div><p class="label" style="margin-bottom:6px">Growth path</p><div class="path">${c.path.map((p,i)=>`${i?"<b>→</b>":""}<span>${esc(p)}</span>`).join("")}</div></div>
+      <details data-key="calc"${openSet.has("calc")?" open":""}><summary class="linkbtn" style="cursor:pointer">How this score was calculated</summary><div style="margin-top:10px">${breakdown(best)}</div></details>
+     </section>
+     <section class="sec" aria-labelledby="h_rec">
+      <div class="sechead"><h2 id="h_rec">Recommended career paths</h2><span class="label">Top 5 of ${CAREERS.length}</span></div>
+      <div class="careers">${top.map((s,i)=>`<details class="career ${i===0?"best":""}" data-key="c_${s.c.id}"${openSet.has("c_"+s.c.id)?" open":""}>
+        <summary><span class="rank">${i+1}</span><span class="cname">${esc(s.c.name)}<small>${s.c.difficulty} · ${s.c.prep}</small></span>${bar(s.total)}<span class="pct">${s.total}%</span></summary>
+        <div class="cbody">
+          <p>${whyText(s)}</p>
+          <div class="meta"><div><span class="label">You have</span><span>${haveList(s.c)}</span></div><div><span class="label">Missing</span><span>${missingList(s.c)}</span></div></div>
+          ${breakdown(s)}
+        </div></details>`).join("")}</div>
+      <p class="note">* Job market relevance and growth potential are general estimates built into this tool, not live job-market data. Each role's Holland code is assigned by this tool.</p>
+     </section>
+    </div>
+    <div class="stack">
+     <section class="sec" aria-labelledby="h_next">
+      <h2 id="h_next">Your next 3 steps</h2>
+      <div class="steps3" style="grid-template-columns:minmax(0,1fr)">
+        <div class="step3"><span class="label">1 · Skill to learn</span><strong>${topGap?esc(topGap.name):"Interview-level depth in your strongest skill"}</strong><span class="muted" style="font-size:14.5px">${topGap?`Move from ${LEVELS[topGap.cur]} to ${LEVELS[topGap.req]}.`:"You meet the listed levels."}</span></div>
+        <div class="step3"><span class="label">2 · Project to build</span><strong>${esc(c.projects[nextLvl].title)}</strong><span class="muted" style="font-size:14.5px">${c.projects[nextLvl].lvl} · ${c.projects[nextLvl].time}</span></div>
+        <div class="step3"><span class="label">3 · Career action</span><strong>${weakest[1]}</strong><span class="muted" style="font-size:14.5px">${esc(ACTIONS[weakest[0]](c))}</span></div>
+      </div>
+     </section>
+     <section class="sec" aria-labelledby="h_ai" id="aiSec">
+      <div class="sechead"><h2 id="h_ai">Personal write-up</h2><span class="label">Optional</span></div>
+      <p class="muted" id="aiIntro">Claude reads your profile and the scores above and writes a short explanation, a tailored project idea and resume tips. It won't change your scores or invent experience.</p>
+      <div class="btnrow"><button class="btn primary" type="button" id="aiBtn">Write with Claude</button><button class="btn" type="button" id="aiStop" hidden>Stop</button></div>
+      <div class="ai-out" id="aiOut"></div>
+     </section>
+    </div>
+   </div>`;
+
+  /* skills */
+  $("#panel_skills").innerHTML=`
+   <div class="rgrid">
+    <section class="sec" aria-labelledby="h_gap">
+      <div class="sechead"><h2 id="h_gap">Skill gap analysis</h2><span class="label">For ${esc(c.name)}</span></div>
+      <div class="scroll"><table class="sheet"><thead><tr><th>Skill</th><th>Counted level</th><th>Required</th><th class="n">Gap</th><th>Priority</th></tr></thead><tbody>${
+        rows.map(r=>`<tr><td>${esc(r.name)}${r.core?"":` <span class="muted">(supporting)</span>`}</td><td>${levelDots(r.cur,r.req)}${LEVELS[r.cur]}${r.self>r.cur?` <span class="muted">(you said ${LEVELS[r.self]})</span>`:""}</td><td>${LEVELS[r.req]}</td><td class="n">${r.gap?r.gap+" lvl":"—"}</td><td><span class="pill ${r.cls}">${r.pr}</span></td></tr>`).join("")
+      }</tbody></table></div>
+      ${quizN<ratedN?`<p class="note">${ratedN-quizN} rated skill${ratedN-quizN===1?" hasn't":"s haven't"} been checked yet. <button type="button" class="linkbtn" data-openquiz style="font-size:13px">Check them now</button></p>`:""}
+    </section>
+    <section class="sec" aria-labelledby="h_pri">
+      <div class="sechead"><h2 id="h_pri">Priority skills</h2><span class="label">Learn in this order</span></div>
+      ${gaps.length?`<ol class="ol">${gaps.slice(0,5).map(g=>`<li><div><strong>${esc(g.name)}</strong><br><span class="muted">${LEVELS[g.cur]} → ${LEVELS[g.req]}</span> <span class="pill ${g.cls}">${g.pr}</span></div></li>`).join("")}</ol>`
+        :`<p class="empty">You already meet the listed skill levels for ${esc(c.name)}. Focus on projects and interview practice.</p>`}
+    </section>
+   </div>`;
+
+  /* plan */
+  $("#panel_plan").innerHTML=`
+   <div class="rgrid">
+    <section class="sec" aria-labelledby="h_road">
+      <div class="sechead"><h2 id="h_road">Learning roadmap</h2><span class="label">${Number(S.hours)||10} h/week · ${totalLo}–${totalHi} weeks</span></div>
+      <div class="phases">
+        ${phase("Phase 1","Foundation",P1.txt,foundation.length?foundation.map(g=>`${esc(g.name)}: reach ${LEVELS[Math.min(g.req,2)]}`):["Revise fundamentals you already have and fill small gaps"])}
+        ${phase("Phase 2","Core skills",P2.txt,coreRest.length||foundation.length?[...coreRest,...foundation.filter(g=>g.req>2)].map(g=>`${esc(g.name)}: reach ${LEVELS[g.req]}`):["Deepen your strongest core skill with harder exercises"])}
+        ${phase("Phase 3","Advanced skills",P3.txt,c.advanced.map(esc))}
+        ${phase("Phase 4","Projects",P4.txt,c.projects.slice(nextLvl).map(p=>`${esc(p.title)} <span class="muted">(${p.lvl})</span>`))}
+        ${phase("Phase 5","Job preparation",P5.txt,JOBPREP.map(esc))}
+      </div>
+    </section>
+    <section class="sec" aria-labelledby="h_cert">
+      <div class="sechead"><h2 id="h_cert">Certifications</h2><span class="label">Only where they add value</span></div>
+      ${c.certs.length?c.certs.map(x=>`<div style="display:flex;flex-direction:column;gap:3px;padding-bottom:10px;border-bottom:1px solid var(--line)"><strong>${esc(x.name)}</strong><span class="muted" style="font-size:14px">${esc(x.provider)} · ${esc(x.diff)} · ${esc(x.time)}</span><span style="font-size:14.5px">${esc(x.rel)}</span></div>`).join(""):""}
+      ${c.certNote?`<p>${esc(c.certNote)}</p>`:""}
+      <p class="note">Check the provider's website for the current exam format and fees before you register.</p>
+    </section>
+   </div>
+   <section class="sec" aria-labelledby="h_proj">
+     <div class="sechead"><h2 id="h_proj">Recommended projects</h2><span class="label">Beginner → Advanced</span></div>
+     <div class="projects">${c.projects.map((p,i)=>`<article class="proj ${i===nextLvl?"next":""}">
+       <span class="label">${p.lvl} · ${p.time}${i===nextLvl?" · start here":""}</span>
+       <h3>${esc(p.title)}</h3>
+       <p class="muted" style="font-size:14.5px">${esc(p.problem)}</p>
+       <p style="font-size:14.5px">${esc(p.feat)}</p>
+       <div class="tags">${p.tech.map(t=>`<span>${esc(t)}</span>`).join("")}</div></article>`).join("")}</div>
+   </section>`;
+
+  /* readiness */
+  $("#panel_ready").innerHTML=`
+   <section class="sec" aria-labelledby="h_ready">
+    <div class="sechead"><h2 id="h_ready">Job readiness</h2><span class="label">For ${esc(c.name)}</span></div>
+    <div class="ready">
+      ${gauge(R.total)}
+      <div class="scroll"><table class="sheet"><thead><tr><th>Area</th><th class="n">Score</th><th class="n">Weight</th><th style="width:32%"></th></tr></thead><tbody>${
+        R.parts.map(p=>`<tr><td>${p[1]}</td><td class="n">${p[3]}</td><td class="n">${Math.round(p[2]*100)}%</td><td>${bar(p[3])}</td></tr>`).join("")}</tbody></table></div>
+    </div>
+    <div class="cols3">
+      <div><h3>Strong areas</h3>${strong.length?`<ul>${strong.map(p=>`<li>${p[1]}</li>`).join("")}</ul>`:`<p class="empty" style="margin-top:6px">None above 70 yet.</p>`}</div>
+      <div><h3>Areas to improve</h3>${weak.length?`<ul>${weak.map(p=>`<li>${p[1]}</li>`).join("")}</ul>`:`<p class="empty" style="margin-top:6px">No area below 50.</p>`}</div>
+      <div><h3>Immediate actions</h3><ul>${(weak.length?weak:R.parts.slice().sort((a,b)=>a[3]-b[3])).slice(0,3).map(p=>`<li>${esc(ACTIONS[p[0]](c))}</li>`).join("")}</ul></div>
+    </div>
+   </section>`;
+
+  /* feedback */
+  $("#panel_feedback").innerHTML=feedbackSection(top);
+
+  const V=$("#view_report");
+  V.querySelectorAll("[data-openquiz]").forEach(b=>b.onclick=()=>openQuiz());
+  V.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>{const a=b.dataset.act;
+    if(a==="start"){$("#startBtn").click()}
+    else if(a==="edit"){go("wizard")}
+    else if(a==="skills"){UI.step=2;go("wizard")}
+    else if(a==="interests"){UI.step=3;go("wizard");const d=$("#riasecBox");if(d)d.open=true}});
+  setRTab(UI.tab);
+  wireAI();wireFeedback();
+}
+
+/* =================== CLAUDE WRITE-UP =================== */
+let samplePromise=null;
+function getSample(){if(!samplePromise)samplePromise=(window.claude&&window.claude.use)?window.claude.use("sample").catch(()=>null):Promise.resolve(null);return samplePromise}
+let aiCtl=null,aiCache=null;
+function hideAI(msg){if(!$("#aiSec"))return;$("#aiBtn").hidden=true;$("#aiStop").hidden=true;$("#aiIntro").textContent=msg}
+function wireAI(){
+  getSample().then(s=>{if(!s)hideAI("The personal write-up needs Claude, which isn't available in this view. Everything else on this page works without it.")});
+  if(aiCache&&aiCache.key===profileKey())renderAI(aiCache.data);
+  $("#aiBtn").addEventListener("click",runAI);
+  $("#aiStop").addEventListener("click",()=>aiCtl&&aiCtl.abort());
+}
+function profileKey(){const {_example,fb,...rest}=S;return JSON.stringify(rest)}
+function buildPrompt(){
+  const scored=rankAll().slice(0,3);const best=scored[0];const R=readiness(best);
+  const profile={name:S.name,country:S.country,location:S.location,preferredLocation:S.prefLocation,workMode:S.workMode,degree:S.degree,
+    major:(MAJORS.find(m=>m[0]===S.major)||["",""])[1],year:S.year,cgpa:S.cgpa,academicStrengths:S.strengths,academicWeaknesses:S.weaknesses,
+    skills:Object.fromEntries(ratedSkills().map(k=>[SKILL_NAME[k],{selfRated:LEVELS[selfLvl(k)],countedAfterQuiz:LEVELS[effLvl(k)],quizScore:S.quiz[k]==null?"not taken":S.quiz[k]+"/3"}])),
+    interestsRanked:S.interests,hollandCode:hollandCode()||"test not taken",
+    targetRole:S.target?CAREER_BY_ID[S.target].name:"Not decided",shortTermGoal:S.shortGoal,longTermGoal:S.longGoal,studyHoursPerWeek:S.hours,
+    projects:S.projects.filter(p=>p.name).map(p=>({name:p.name,area:(AREAS.find(a=>a[0]===p.area)||["","Other"])[1]})),
+    internship:INTERN.find(x=>x[0]===String(S.intern))[1],codingProblemsSolved:CODING.find(x=>x[0]===String(S.coding))[1],resume:RESUME.find(x=>x[0]===S.resume)[1]};
+  const results={topCareers:scored.map(s=>({career:s.c.name,compatibility:s.total+"%"})),bestCareer:best.c.name,
+    skillGaps:gapRows(best.c).filter(r=>r.gap>0).map(r=>({skill:r.name,current:LEVELS[r.cur],required:LEVELS[r.req],priority:r.pr})),jobReadiness:R.total+"/100"};
+  return `You are a career guidance advisor for students. Below is a student's self-reported profile and the scores a rule-based tool already calculated.
+
+Rules:
+- Personalize everything to this profile. No generic advice.
+- Do not change or recalculate the scores. Refer to them as given.
+- Never invent experience, certifications, internships, project results or percentages. If something is missing, say so plainly.
+- Never guarantee a job or salary.
+- Recommend at most 3 skills. Use simple, student-friendly language.
+
+Reply with only a JSON object of this shape:
+{"summary": "2-3 sentence profile summary in second person",
+ "why_best": "3-4 sentences on why the best career fits, citing specific skills, interests, studies or projects from the profile, and one honest risk",
+ "project": {"title": "...", "problem": "one sentence", "features": ["3-4 short items"], "tech": ["3-5 items"], "time": "e.g. 4-5 weeks"},
+ "resume_tips": ["3 specific tips; when rewriting a project line use Action + Technology + Problem + Result and write [your result] where a number is unknown"],
+ "watch_out": "one sentence on the biggest thing that could hold this student back"}
+
+PROFILE:
+${JSON.stringify(profile,null,1)}
+
+TOOL RESULTS:
+${JSON.stringify(results,null,1)}`;
+}
+async function runAI(){
+  const sample=await getSample();if(!sample)return;
+  const btn=$("#aiBtn"),stop=$("#aiStop");
+  aiCtl=new AbortController();btn.disabled=true;stop.hidden=false;$("#aiOut").innerHTML=`<p class="muted">Thinking… this can take up to a minute.</p>`;
+  try{
+    const data=await sample.json(buildPrompt(),{signal:aiCtl.signal});
+    if(!data||typeof data!=="object")throw {code:"invalid_json"};
+    aiCache={key:profileKey(),data};renderAI(data);
+  }catch(e){
+    const code=e&&e.code;const o=$("#aiOut");
+    if(code==="cancelled"){o.innerHTML=""}
+    else if(["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(code)){o.innerHTML="";hideAI("Claude isn't enabled for this page in your account, so the write-up is off. Everything else still works.")}
+    else if(code==="rate_limited"){o.innerHTML=`<p class="muted">Too many requests right now. Wait a few minutes, then try again.</p>`}
+    else if(code==="session_expired"){o.innerHTML=`<p class="muted">Your Claude session expired. Sign in again, then retry.</p>`}
+    else if(code==="invalid_json"){o.innerHTML=`<p class="muted">The reply came back in an unexpected format. Press the button to try again.</p>`}
+    else{o.innerHTML=`<p class="muted">The write-up couldn't be generated. Check your connection and try again.</p>`}
+  }finally{const b=$("#aiBtn"),s=$("#aiStop");if(b)b.disabled=false;if(s)s.hidden=true;aiCtl=null}
+}
+function renderAI(d){
+  const p=d.project&&typeof d.project==="object"?d.project:null;
+  $("#aiOut").innerHTML=`
+   ${d.summary?`<div><p class="label">Summary</p><p>${esc(d.summary)}</p></div>`:""}
+   ${d.why_best?`<div><p class="label">Why your best match fits</p><p>${esc(d.why_best)}</p></div>`:""}
+   ${p?`<div class="proj next"><span class="label">Tailored project idea${p.time?" · "+esc(p.time):""}</span><h3>${esc(p.title)}</h3>${p.problem?`<p class="muted" style="font-size:14px">${esc(p.problem)}</p>`:""}
+     ${arr(p.features).length?`<ul>${arr(p.features).map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`:""}
+     <div class="tags">${arr(p.tech).map(t=>`<span>${esc(t)}</span>`).join("")}</div></div>`:""}
+   ${arr(d.resume_tips).length?`<div><p class="label">Resume tips</p><ul>${arr(d.resume_tips).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
+   ${d.watch_out?`<div><p class="label">Watch out for</p><p>${esc(d.watch_out)}</p></div>`:""}
+   <p class="note">Written by Claude from your inputs. Check it against your own experience before using it.</p>`;
+}
+
+/* =================== PLATFORM (db, user, downloads) =================== */
+const P={db:null,user:null,dl:null,uid:null,admin:false,ready:false,mySub:null};
+async function initPlatform(){
+  if(!(window.claude&&window.claude.use)){P.ready=true;$("#rt_feedback").hidden=true;if(UI.tab==="feedback")UI.tab="overview";render();return}
+  const got=await Promise.all(["db","user","downloads"].map(n=>window.claude.use(n).catch(()=>null)));
+  P.db=got[0];P.user=got[1];P.dl=got[2];
+  if(P.user){P.uid=await P.user.id();P.admin=await P.user.canEdit();}
+  P.ready=true;
+  if(P.db&&P.uid){try{const s=await P.db.doc("submissions/"+P.uid).get();if(s.exists)P.mySub=s.data()}catch(e){}}
+  if(P.admin&&P.db){$("#nav_eval").hidden=false;startEval()}
+  if(UI.view==="eval"&&P.admin&&P.db)go("eval",{keepScroll:true});else render();
+}
+
+/* =================== FEEDBACK + SUBMISSION =================== */
+let submitMsg=null;
+function feedbackSection(top){
+  const f=S.fb;
+  const slider=(k,label)=>`<div class="field"><label for="fb_${k}">${label}</label><div class="rangerow"><input type="range" id="fb_${k}" min="1" max="10" step="1" value="${f[k]}" data-fb="${k}"><span class="mono" id="fbv_${k}">${f[k]}</span></div></div>`;
+  return `<section class="sec" aria-labelledby="h_fb" id="fbSec">
+    <div class="sechead"><h2 id="h_fb">Help improve Career Compass</h2><span class="label">Anonymous · optional</span></div>
+    <p class="muted" style="font-size:14px">Your ratings and an anonymous copy of your inputs help check whether these recommendations are accurate and tune the scoring weights.</p>
+    ${slider("rel","How relevant were the recommended careers? (1–10)")}
+    ${slider("clar","How clear was the report? (1–10)")}
+    ${slider("use","How useful are the next steps? (1–10)")}
+    <div class="field"><label for="fb_chosen">Which career do you plan to pursue?</label><select id="fb_chosen" data-fb="chosen">
+      <option value="">Undecided</option>${CAREERS.map(cc=>`<option value="${cc.id}"${f.chosen===cc.id?" selected":""}>${esc(cc.name)}${top.some(t=>t.c.id===cc.id)?"":" (not in your top 5)"}</option>`).join("")}</select></div>
+    <details><summary class="linkbtn" style="cursor:pointer;font-size:13.5px">What gets shared</summary>
+      <p class="note" style="margin-top:6px">Major area, skill ratings and quiz scores, ranked interests, interest-test scores, target role, study hours, number of projects per area, internship, coding practice, certifications, resume status, communication rating, the computed scores, your ratings above and your chosen career. Not your name, country, location, college, CGPA, project names or any text you typed.</p></details>
+    <label class="check"><input type="checkbox" id="fb_consent" data-fb="consent"${f.consent?" checked":""}><span>I agree to share this anonymous response.</span></label>
+    <div class="btnrow"><button type="button" class="btn primary" id="fbSubmit"${f.consent?"":" disabled"}${P.ready&&!(P.db&&P.uid)?" hidden":""}>Submit response</button><button type="button" class="btn" id="fbDownload"${f.consent?"":" disabled"}${P.ready&&!P.dl?" hidden":""}>Download response file</button></div>
+    ${P.ready&&!(P.db&&P.uid)?`<p class="note">Saving responses on this page needs you signed in to Claude with access to it. You can download your response file and send it to your counsellor instead.</p>`:""}
+    ${P.mySub?`<p class="note">You submitted on ${new Date(P.mySub.ts).toLocaleDateString()}. Submitting again replaces it.</p>`:""}
+    ${submitMsg?`<p class="status ${submitMsg[0]}" role="status">${esc(submitMsg[1])}</p>`:""}
+    ${S._example?`<p class="note">This is the example profile. Clear it and enter your own details before submitting.</p>`:""}
+  </section>`;
+}
+function wireFeedback(){
+  document.querySelectorAll("[data-fb]").forEach(el=>{
+    el.addEventListener("input",()=>{const k=el.dataset.fb;
+      if(k==="consent"){S.fb.consent=el.checked;$("#fbSubmit").disabled=!el.checked;$("#fbDownload").disabled=!el.checked}
+      else if(k==="chosen")S.fb.chosen=el.value;
+      else{S.fb[k]=Number(el.value);$("#fbv_"+k).textContent=el.value}
+      save();});
+  });
+  $("#fbSubmit").addEventListener("click",submitResponse);
+  $("#fbDownload").addEventListener("click",downloadResponse);
+}
+function buildSubmission(){
+  const scored=rankAll();const best=scored[0];const r=riasecScores();
+  const projAreas={};S.projects.forEach(p=>{const a=p.area||"other";projAreas[a]=(projAreas[a]||0)+1});
+  return {v:2,ts:Date.now(),major:S.major||"",
+    skills:Object.fromEntries(ALL_SKILLS.map(k=>[k,S.skills[k]||0])),
+    quiz:Object.fromEntries(ALL_SKILLS.filter(k=>S.quiz[k]!=null&&S.skills[k]).map(k=>[k,S.quiz[k]])),
+    interests:S.interests.slice(0,5),riasec:r.complete?r.scores:null,
+    target:S.target||"",hours:Number(S.hours)||10,projects:projAreas,intern:String(S.intern),coding:String(S.coding),certs:String(S.certs),resume:S.resume,comm:Number(S.comm)||3,
+    scores:Object.fromEntries(scored.map(s=>[s.c.id,Object.assign({total:s.total},s.f)])),
+    top3:scored.slice(0,3).map(s=>s.c.id),readiness:readiness(best).total,
+    fb:{rel:S.fb.rel,clar:S.fb.clar,use:S.fb.use},chosen:S.fb.chosen||""};
+}
+async function submitResponse(){
+  if(S._example){submitMsg=["bad","This is still the example profile. Clear it and enter your own details first."];render();return}
+  $("#fbSubmit").disabled=true;
+  if(!P.db||!P.uid){submitMsg=["bad","Saving needs you signed in to Claude with access to this page. Download your response file and send it to your counsellor instead."];render();return}
+  try{const sub=buildSubmission();await P.db.doc("submissions/"+P.uid).set(sub);P.mySub=sub;submitMsg=["good","Thanks. Your anonymous response was saved."]}
+  catch(e){const c=e&&e.code;
+    submitMsg=["bad",c==="invalid_argument"?"Your access to this page doesn't allow saving responses. Download your response file and send it to your counsellor instead.":c==="quota_exceeded"?"The response store is full. Please tell the page owner.":"Your response couldn't be saved. Try again in a moment."];}
+  render();
+}
+async function downloadResponse(){
+  if(S._example){submitMsg=["bad","This is still the example profile. Clear it and enter your own details first."];render();return}
+  if(!P.dl)return;
+  try{await P.dl.save({filename:"career-compass-response.json",data:JSON.stringify(buildSubmission(),null,1)});submitMsg=["good","Response file saved. Send it to your counsellor."]}
+  catch(e){if(e&&e.code==="declined")return;submitMsg=["bad","The file couldn't be saved here."]}
+  render();
+}
+
+/* =================== EVALUATION (owner / editors) =================== */
+const E={subs:new Map(),ratings:new Map(),started:false,current:null,draft:{},msg:null,err:null};
+function startEval(){
+  if(E.started)return;E.started=true;
+  P.db.collection("submissions").onSnapshot(s=>{E.subs=new Map(s.docs.map(d=>[d.id,d.data()]));renderEval()},e=>{E.err="Couldn't load responses ("+(e&&e.code)+").";renderEval()});
+  P.db.collection("ratings").onSnapshot(s=>{E.ratings=new Map(s.docs.map(d=>[d.id,d.data()]));renderEval()},e=>{E.err="Couldn't load ratings ("+(e&&e.code)+").";renderEval()});
+}
+
+function dcg(rels){return rels.reduce((a,r,i)=>a+(Math.pow(2,r)-1)/Math.log2(i+2),0)}
+function ndcg(ratings){const rel=ratings.map(x=>x-1);const id=dcg([...rel].sort((a,b)=>b-a));return id?dcg(rel)/id:1}
+function metrics(){
+  const R=[...E.ratings.values()].filter(r=>Array.isArray(r.ratings)&&r.ratings.length===3);
+  const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+  const Ss=[...E.subs.values()];
+  const fbm=k=>mean(Ss.map(s=>s.fb&&s.fb[k]).filter(v=>typeof v==="number"));
+  const chosen=Ss.filter(s=>s.chosen);
+  return {nR:R.length,nRated:new Set(R.map(r=>r.sub)).size,
+    p3:mean(R.map(r=>r.ratings.filter(x=>x>=3).length/3)),p4:mean(R.map(r=>r.ratings.filter(x=>x>=4).length/3)),nd:mean(R.map(r=>ndcg(r.ratings))),
+    nS:Ss.length,rel:fbm("rel"),clar:fbm("clar"),use:fbm("use"),nChosen:chosen.length,
+    hit1:chosen.length?chosen.filter(s=>s.top3&&s.top3[0]===s.chosen).length/chosen.length:null,
+    hit3:chosen.length?chosen.filter(s=>s.top3&&s.top3.includes(s.chosen)).length/chosen.length:null};
+}
+function ratingId(sid){return sid+"__"+(P.uid||"owner")}
+function subSummary(s){
+  const sk=Object.entries(s.skills||{}).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${SKILL_NAME[k]||k}: ${LEVELS[v]||v}${s.quiz&&s.quiz[k]!=null?` (quiz ${s.quiz[k]}/3)`:""}`);
+  const pr=Object.entries(s.projects||{}).map(([a,n])=>`${n} ${(AREAS.find(x=>x[0]===a)||[a,a])[1]}`);
+  const hc=s.riasec?Object.entries(s.riasec).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]).join(""):"";
+  return `<div class="meta">
+    <div><span class="label">Major</span><span>${esc((MAJORS.find(m=>m[0]===s.major)||["","Not given"])[1]||"Not given")}</span></div>
+    <div><span class="label">Interests</span><span>${esc(arr(s.interests).join(", ")||"None picked")}${hc?` · Holland ${esc(hc)}`:""}</span></div>
+    <div><span class="label">Target</span><span>${esc(s.target&&CAREER_BY_ID[s.target]?CAREER_BY_ID[s.target].name:"Undecided")}</span></div>
+    <div><span class="label">Experience</span><span>${esc((INTERN.find(x=>x[0]===s.intern)||["","?"])[1])} internship · ${esc(pr.join(", ")||"no projects")}</span></div>
+  </div><p style="font-size:13.5px"><span class="label">Skills</span><br>${esc(sk.join(" · ")||"None rated")}</p>`;
+}
+const cname=id=>CAREER_BY_ID[id]?CAREER_BY_ID[id].name:id;
+function renderEval(){
+  const V=$("#evalView");if(V.hidden)return;
+  const m=metrics();const f=(v,d)=>v==null?"—":v.toFixed(d==null?2:d);
+  const queue=[...E.subs.entries()].filter(([id])=>!E.ratings.has(ratingId(id))).sort((a,b)=>(a[1].ts||0)-(b[1].ts||0));
+  if(E.current&&(!E.subs.has(E.current)||E.ratings.has(ratingId(E.current))))E.current=null;
+  const cur=E.current?E.subs.get(E.current):null;
+  V.innerHTML=`
+  ${E.err?`<div class="banner">${esc(E.err)}</div>`:""}
+  <section class="sec" aria-labelledby="h_ev">
+    <div class="sechead"><h2 id="h_ev">Evaluation</h2><span class="label">Visible to owner and editors only</span></div>
+    <p class="muted" style="font-size:14px">Counsellors rate how suitable each of a student's top 3 careers is (1–5). Precision@3 and nDCG follow the Skills2Job method (Seveso et al., 2021). Student ratings and chosen careers come from submitted responses.</p>
+    <div class="ekpis">
+      <div class="ekpi"><span class="label">Responses</span><b>${m.nS}</b><span class="note">${m.nRated} rated by counsellors</span></div>
+      <div class="ekpi"><span class="label">Precision@3 (≥ 3)</span><b>${f(m.p3)}</b><span class="note">Share of top-3 careers rated 3 or more · ${m.nR} ratings</span></div>
+      <div class="ekpi"><span class="label">Precision@3 (≥ 4)</span><b>${f(m.p4)}</b><span class="note">Share rated 4 or more</span></div>
+      <div class="ekpi"><span class="label">nDCG@3</span><b>${f(m.nd)}</b><span class="note">1.00 = the best-rated career is always ranked first</span></div>
+      <div class="ekpi"><span class="label">Chosen career in top 3</span><b>${m.hit3==null?"—":pct(m.hit3)}</b><span class="note">${m.nChosen} students chose · ranked first: ${m.hit1==null?"—":pct(m.hit1)}</span></div>
+      <div class="ekpi"><span class="label">Student relevance</span><b>${f(m.rel,1)}</b><span class="note">out of 10 · clarity ${f(m.clar,1)} · usefulness ${f(m.use,1)}</span></div>
+    </div>
+    ${m.nS<30?`<p class="note">Fewer than 30 responses: treat these numbers as early signals, not results.</p>`:""}
+  </section>
+
+  <section class="sec" aria-labelledby="h_rq">
+    <div class="sechead"><h2 id="h_rq">Counsellor rating queue</h2><span class="label">${queue.length} waiting for your rating</span></div>
+    ${cur?`<div class="rateCard">
+      <span class="label">Response from ${new Date(cur.ts).toLocaleDateString()}</span>
+      ${subSummary(cur)}
+      <p style="font-size:14px;font-weight:600">How suitable is each recommended career for this student? (1 = not suitable, 5 = very suitable)</p>
+      <div>${arr(cur.top3).map((cid,i)=>`<div class="rateRow"><span class="mono muted">${i+1}</span><span>${esc(cname(cid))} <span class="muted mono">${cur.scores&&cur.scores[cid]?cur.scores[cid].total+"%":""}</span></span>
+        <div class="lik" role="group" aria-label="Rating for ${esc(cname(cid))}" data-rate="${i}">${[1,2,3,4,5].map(v=>`<button type="button" data-v="${v}" aria-pressed="${E.draft[i]===v}">${v}</button>`).join("")}</div></div>`).join("")}</div>
+      <div class="btnrow"><button type="button" class="btn primary" id="saveRating"${[0,1,2].every(i=>E.draft[i])?"":" disabled"}>Save rating</button><button type="button" class="btn" id="skipRating">Back to queue</button></div>
+    </div>`:queue.length?`<div class="scroll"><table class="sheet"><thead><tr><th>Submitted</th><th>Major</th><th>Top 3 careers</th><th></th></tr></thead><tbody>${
+      queue.slice(0,25).map(([id,s])=>`<tr><td class="mono">${new Date(s.ts).toLocaleDateString()}</td><td>${esc((MAJORS.find(x=>x[0]===s.major)||["","—"])[1]||"—")}</td><td>${esc(arr(s.top3).map(cname).join(", "))}</td><td><button type="button" class="btn small" data-rateid="${esc(id)}">Rate</button></td></tr>`).join("")}</tbody></table></div>`
+      :`<p class="empty">${m.nS?"You've rated every response. New ones appear here as students submit.":"No responses yet. Share this page with students at Contributor access so they can submit, or import response files below."}</p>`}
+    ${E.msg?`<p class="status ${E.msg[0]}" role="status">${esc(E.msg[1])}</p>`:""}
+  </section>
+
+  <section class="sec" aria-labelledby="h_data">
+    <div class="sechead"><h2 id="h_data">Data for weight tuning</h2><span class="label">Export &amp; import</span></div>
+    <p class="muted" style="font-size:14px">Export every response as CSV, one row per student: each factor score per career, quiz results, interest-test scores, feedback, chosen career and the average counsellor rating. Once you have enough rows, fit the 7 weights against chosen careers or counsellor ratings.</p>
+    <div class="btnrow">
+      <button type="button" class="btn primary" id="exportCsv"${m.nS&&P.dl?"":" disabled"}>Export CSV (${m.nS} rows)</button>
+      <label class="btn" for="importFiles" style="cursor:pointer">Import response files</label>
+      <input type="file" id="importFiles" accept=".json,application/json" multiple hidden>
+    </div>
+    ${!P.dl?`<p class="note">Downloads aren't available in this view, so export is off.</p>`:""}
+  </section>`;
+  V.querySelectorAll("[data-rateid]").forEach(b=>b.onclick=()=>{E.current=b.dataset.rateid;E.draft={};E.msg=null;renderEval();});
+  V.querySelectorAll("[data-rate]").forEach(g=>g.addEventListener("click",e=>{const b=e.target.closest("button[data-v]");if(!b)return;E.draft[g.dataset.rate]=Number(b.dataset.v);renderEval();}));
+  const sv=$("#saveRating");if(sv)sv.onclick=saveRating;
+  const sk=$("#skipRating");if(sk)sk.onclick=()=>{E.current=null;E.draft={};renderEval()};
+  $("#exportCsv").onclick=exportCsv;
+  $("#importFiles").onchange=e=>importFiles(e.target.files);
+}
+async function saveRating(){
+  const id=E.current;const s=E.subs.get(id);if(!s)return;
+  const doc={sub:id,rater:P.uid||"owner",ts:Date.now(),top3:arr(s.top3),ratings:[0,1,2].map(i=>E.draft[i])};
+  $("#saveRating").disabled=true;
+  try{await P.db.doc("ratings/"+ratingId(id)).set(doc);E.msg=["good","Rating saved."];E.current=null;E.draft={}}
+  catch(e){E.msg=["bad","The rating couldn't be saved. Try again."]}
+  renderEval();
+}
+function csvCell(v){const s=v==null?"":String(v);return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s}
+function buildCsv(){
+  const facs=Object.keys(W);
+  const head=["id","submitted","major","target","chosen","hours","intern","coding","certs","resume","comm","readiness","fb_relevance","fb_clarity","fb_usefulness","interests",
+    ...RIASEC.map(r=>"riasec_"+r[0]),...ALL_SKILLS.map(k=>"skill_"+k),...ALL_SKILLS.map(k=>"quiz_"+k),...AREAS.map(a=>"projects_"+a[0]),
+    "top1","top2","top3","counsellor_mean_rating","counsellor_ratings",...CAREERS.flatMap(c=>["total",...facs].map(x=>c.id+"_"+x))];
+  const out=[head.join(",")];
+  for(const [id,s] of E.subs){
+    const rs=[...E.ratings.values()].filter(r=>r.sub===id);const all=rs.flatMap(r=>arr(r.ratings));
+    const g=(o,k)=>o&&o[k]!=null?o[k]:"";
+    const row=[id,new Date(s.ts).toISOString(),s.major,s.target,s.chosen,s.hours,s.intern,s.coding,s.certs,s.resume,s.comm,s.readiness,g(s.fb,"rel"),g(s.fb,"clar"),g(s.fb,"use"),arr(s.interests).join("|"),
+      ...RIASEC.map(r=>g(s.riasec,r[0])),...ALL_SKILLS.map(k=>g(s.skills,k)||0),...ALL_SKILLS.map(k=>g(s.quiz,k)),...AREAS.map(a=>g(s.projects,a[0])||0),
+      g(s.top3,0),g(s.top3,1),g(s.top3,2),all.length?(all.reduce((a,b)=>a+b,0)/all.length).toFixed(2):"",rs.map(r=>arr(r.ratings).join("-")).join("|"),
+      ...CAREERS.flatMap(c=>["total",...facs].map(x=>g(s.scores&&s.scores[c.id],x)))];
+    out.push(row.map(csvCell).join(","));
+  }
+  return out.join("\n");
+}
+async function exportCsv(){
+  if(!P.dl)return;
+  try{await P.dl.save({filename:"career-compass-responses.csv",data:buildCsv()});E.msg=["good","CSV exported."]}
+  catch(e){if(e&&e.code==="declined")return;E.msg=["bad","The CSV couldn't be saved here."]}
+  renderEval();
+}
+async function importFiles(files){
+  let ok=0,bad=0;
+  for(const file of files){
+    try{const d=JSON.parse(await file.text());
+      if(!d||typeof d!=="object"||!Array.isArray(d.top3)||typeof d.skills!=="object")throw 0;
+      const clean={v:Number(d.v)||2,ts:Number(d.ts)||Date.now(),major:String(d.major||""),skills:d.skills,quiz:d.quiz||{},interests:arr(d.interests).map(String).slice(0,5),riasec:d.riasec||null,
+        target:String(d.target||""),hours:Number(d.hours)||10,projects:d.projects||{},intern:String(d.intern==null?"0":d.intern),coding:String(d.coding==null?"0":d.coding),certs:String(d.certs==null?"0":d.certs),resume:String(d.resume||"none"),comm:Number(d.comm)||3,
+        scores:d.scores||{},top3:d.top3.map(String).slice(0,3),readiness:Number(d.readiness)||0,fb:d.fb||{},chosen:String(d.chosen||""),imported:true};
+      await P.db.collection("submissions").doc("imp-"+clean.ts+"-"+Math.random().toString(36).slice(2,8)).set(clean);ok++;
+    }catch(e){bad++}
+  }
+  E.msg=[bad?"bad":"good",`Imported ${ok} response${ok===1?"":"s"}${bad?`; ${bad} file${bad===1?"":"s"} couldn't be read`:""}.`];renderEval();
+}
+
+/* =================== LOOP =================== */
+let t=null;
+function update(now){save();clearTimeout(t);if(now){render();return}t=setTimeout(render,120)}
+syncAll();
+{const hv=(location.hash||"").slice(1);if(VIEWS[hv])UI.view=hv;}
+go(UI.view==="eval"?"report":UI.view,{keepScroll:true});
+initPlatform();
+})();
+</script>
+
+</body>
+</html>
